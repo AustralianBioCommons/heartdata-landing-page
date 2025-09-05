@@ -1,0 +1,43 @@
+name: Deploy Website
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions: { id-token: write, contents: read }
+    environment:
+      name: production
+    env:
+      AWS_REGION: ap-southeast-2
+      SITE_NAME: heartdata
+    steps:
+      - name: Checkout app
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Build app
+        run: npm ci && npm run build
+
+      - name: Configure AWS (assume prod role)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN_PROD }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Read outputs from SSM
+        run: |
+          BUCKET=$(aws ssm get-parameter --name "/web-delivery/${SITE_NAME}/bucket" --query "Parameter.Value" --output text)
+          DIST=$(aws ssm get-parameter --name "/web-delivery/${SITE_NAME}/distributionId" --query "Parameter.Value" --output text)
+          echo "BUCKET=$BUCKET" >> $GITHUB_ENV
+          echo "DIST=$DIST" >> $GITHUB_ENV
+
+      - name: Upload content
+        run: aws s3 sync dist s3://$BUCKET --delete
+
+      - name: Invalidate cache
+        run: aws cloudfront create-invalidation --distribution-id $DIST --paths "/*"

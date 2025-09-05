@@ -1,0 +1,11 @@
+{
+  "name": "heartdata-landing-page",
+  "domainName": "heartdata.baker.edu.au",
+  "wafArn": "arn:aws:wafv2:us-east-1:123456789012:global/webacl/GlobalWebAcl/a1b2c3d4-...",
+  "certificateArn": "arn:aws:acm:us-east-1:416298298491:certificate/ac1fff71-7a2a-45c2-af29-55addeda673d",
+  "spa404ToIndex": true,
+  "assetPaths": ["/*.css", "/*.js", "/assets/*"],
+  "immutableTtlDays": 365,
+  "htmlTtlSeconds": 0,
+  "versioned": true
+}
