@@ -9,6 +9,9 @@
   --text-light: #555;
   --background-light-blue: #b8dff2 !important;
   --max-width: 960px;
+  --hero-bg: #0b2d4f; /* deep blue */
+  --hero-text: #e6f2ff; /* soft light */
+  --card-bg: #ffffff;
 }
 
 /* Global Layout */
@@ -116,4 +119,37 @@ footer a {
   main {
     padding: 1.5rem;
   }
+}
+
+header.hero {
+  background: var(--hero-bg);
+  color: var(--hero-text);
+  padding: 3rem 1rem 2rem;
+  text-align: center;
+}
+
+header.hero h1 {
+  margin: 0 0 0.25rem;
+  line-height: 1.2;
+}
+
+header.hero p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+header.hero .sponsors {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+header.hero .sponsors img {
+  display: block;
+  max-width: min(680px, 92vw);
+  max-height: 44px; /* keeps it slim */
+  width: auto;
+  height: auto;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 0 transparent); /* remove fuzzy edge */
 }
