@@ -36,8 +36,16 @@ jobs:
           echo "BUCKET=$BUCKET" >> $GITHUB_ENV
           echo "DIST=$DIST" >> $GITHUB_ENV
 
-      - name: Upload content
-        run: aws s3 sync dist s3://$BUCKET --delete
+      - name: Read images bucket from SSM
+        run: |
+          IMAGES_BUCKET=$(aws ssm get-parameter --name "/web-delivery/${SITE_NAME}/imagesBucket" --query "Parameter.Value" --output text)
+          echo "IMAGES_BUCKET=$IMAGES_BUCKET" >> $GITHUB_ENV
+
+      - name: Upload images
+        run: aws s3 sync dist/images "s3://$IMAGES_BUCKET" --delete
+
+      - name: Upload main site
+        run: aws s3 sync dist "s3://$BUCKET" --delete --exclude "images/*"
 
       - name: Invalidate cache
         run: aws cloudfront create-invalidation --distribution-id $DIST --paths "/*"
