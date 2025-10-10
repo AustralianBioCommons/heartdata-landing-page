@@ -38,7 +38,7 @@ jobs:
 
       - name: Read images bucket from SSM
         run: |
-          IMAGES_BUCKET=$(aws ssm get-parameter --name "/web-delivery/${SITE_NAME}/imagesBucket" --query "Parameter.Value" --output text)
+          IMAGES_BUCKET=$(aws ssm get-parameter --name "/web-delivery/${SITE_NAME}/assetsBucket" --query "Parameter.Value" --output text)
           echo "IMAGES_BUCKET=$IMAGES_BUCKET" >> $GITHUB_ENV
 
       - name: Upload images
