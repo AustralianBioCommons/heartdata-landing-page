@@ -42,7 +42,7 @@ jobs:
           echo "IMAGES_BUCKET=$IMAGES_BUCKET" >> $GITHUB_ENV
 
       - name: Upload images
-        run: aws s3 sync dist/images "s3://$IMAGES_BUCKET" --delete
+        run: aws s3 sync dist/images "s3://$IMAGES_BUCKET/images" --delete
 
       - name: Upload main site
         run: aws s3 sync dist "s3://$BUCKET" --delete --exclude "images/*"
