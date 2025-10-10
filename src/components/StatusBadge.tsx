@@ -1,22 +1,13 @@
-function badgeClass(kind: "env" | "sha") {
-  return kind === "env" ? "bg-emerald-600" : "bg-slate-700";
-}
-
 export default function StatusBadge() {
-  const env = import.meta.env.VITE_ENV ?? "dev";
-  const app = import.meta.env.VITE_APP_NAME ?? "App";
-  const sha = (import.meta.env.VITE_BUILD_SHA ?? "dev").slice(0, 7);
-  const when = new Date().toLocaleString();
+  // Replace with real env/build info if available
+  const env = import.meta.env.VITE_ENV || "test";
+  const sha = (import.meta.env.VITE_BUILD_SHA || "").slice(0, 7);
 
   return (
-    <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-      <span className={`text-white px-2 py-1 rounded ${badgeClass("env")}`}>
-        {app}:{env}
-      </span>
-      <span className={`text-white px-2 py-1 rounded ${badgeClass("sha")}`}>
-        build {sha}
-      </span>
-      <span className="text-slate-500">{when}</span>
-    </div>
+    <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 ring-1 ring-slate-200">
+      <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-emerald-500"></span>
+      Environment: {env}
+      {sha ? <span className="text-slate-400">· {sha}</span> : null}
+    </span>
   );
 }

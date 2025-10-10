@@ -1,0 +1,101 @@
+/* --- HEADER --- */
+header {
+  background-color: #0b2545; /* matches your policies/nav blue */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+header img {
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+  padding: 10px; /* adds visual margin to prevent clipping */
+  background: transparent;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+header .lead {
+  color: #cfd8e3;
+  font-weight: 400;
+  margin: 0.25rem 0 0;
+}
+
+/* --- HERO --- */
+.hero {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #e8f2fb; /* subtle blue tint */
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  padding: 20px; /* extra breathing room inside hero */
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 24px;
+}
+
+/* --- MAIN CONTENT --- */
+.main {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.main h2 {
+  border-bottom: 2px solid var(--acdc-primary, #c80045);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: #111;
+}
+
+/* --- CTA BUTTON --- */
+.btn {
+  display: inline-block;
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 2px solid var(--acdc-primary, #c80045);
+  color: var(--acdc-primary, #c80045);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--acdc-primary, #c80045);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* --- FOOTER --- */
+footer {
+  background: #0b2545;
+  color: #cfd8e3;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: #f87171;
+}
