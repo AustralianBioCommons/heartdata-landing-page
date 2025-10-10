@@ -7,6 +7,7 @@
   --baker-grey: #f4f5f7;
   --text-dark: #333;
   --text-light: #555;
+  --background-light-blue: #b8dff2 !important;
   --max-width: 960px;
 }
 
@@ -15,7 +16,7 @@ body {
   font-family: "Helvetica Neue", Arial, sans-serif;
   line-height: 1.65;
   color: var(--text-dark);
-  background: var(--baker-grey);
+  background: var(--background-light-blue);
   margin: 0;
   padding: 0;
 }
