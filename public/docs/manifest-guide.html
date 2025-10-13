@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Using Manifest Files - ACDC Platform</title>
+    <meta
+      name="description"
+      content="Instructions for using manifest files in the ACDC platform, Baker Heart and Diabetes Institute."
+    />
+    <link rel="stylesheet" href="../assets/css/policies.css" />
+  </head>
+
+  <body>
+    <header class="hero">
+      <center>
+        <h1>Using Manifest Files with the ACDC Platform</h1>
+        <p>
+          Download and access study files securely using the Gen3 client and a
+          manifest file.
+        </p>
+      </center>
+    </header>
+
+    <main>
+      <section>
+        <h2>What is a Manifest File?</h2>
+        <p>
+          A manifest file is a JSON file that lists the dataset files you've
+          selected in the Study Explorer. It contains metadata like GUIDs and
+          file names required to securely download those files using the Gen3
+          client.
+        </p>
+        <p>
+          This file is machine-readable and is typically named
+          <code>manifest.json</code>.
+        </p>
+      </section>
+
+      <section>
+        <h2>How to Generate a Manifest</h2>
+        <ol>
+          <li>
+            Navigate to the
+            <a href="https://commons.heartdata.baker.edu.au/discovery"
+              >Study Explorer</a
+            >.
+          </li>
+          <li>
+            Select one or more studies or data files using the checkboxes.
+          </li>
+          <li>Click the <strong>Download Manifest</strong> button.</li>
+          <li>
+            A file named <code>manifest.json</code> will be downloaded to your
+            computer.
+          </li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>How to Use the Gen3 Client</h2>
+        <p>
+          The Gen3 client is a command-line tool for securely downloading data
+          from the ACDC platform using your manifest file.
+        </p>
+
+        <ol>
+          <li>
+            Install the Gen3 client:
+            <pre><code>pip install gen3-client</code></pre>
+          </li>
+          <li>
+            Configure the client:
+            <pre><code>gen3-client configure --profile acdc --cred ~/.gen3/credentials.json --apiendpoint https://commons.heartdata.baker.edu.au</code></pre>
+          </li>
+          <li>
+            Download files from your manifest:
+            <pre><code>gen3-client download-multiple --profile acdc --manifest-path manifest.json</code></pre>
+          </li>
+        </ol>
+
+        <p>
+          For full instructions, see the official
+          <a
+            href="https://docs.gen3.org/gen3-resources/user-guide/access-data/#download-files-using-the-gen3-client"
+            target="_blank"
+            >Gen3 Client documentation</a
+          >.
+        </p>
+      </section>
+
+      <section>
+        <h2>Troubleshooting Tips</h2>
+        <ul>
+          <li>
+            Ensure you are logged in and have access to the selected study data.
+          </li>
+          <li>
+            Manifest files are only valid for a limited time; regenerate if
+            expired.
+          </li>
+          <li>
+            Check your API endpoint is correctly configured to
+            <code>https://commons.heartdata.baker.edu.au</code>.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Baker Heart and Diabetes Institute. All rights reserved.<br />
+        <a href="/policies/terms-of-use.html">Terms of Use</a> |
+        <a href="/policies/privacy-policy.html">Privacy Policy</a> |
+        <a href="/policies/data-sharing-policy.html">Data Sharing Policy</a> |
+        <a href="/docs/manifest-guide.html">Manifest Guide</a>
+      </p>
+    </footer>
+  </body>
+</html>
