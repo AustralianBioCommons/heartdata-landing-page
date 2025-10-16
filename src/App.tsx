@@ -42,7 +42,8 @@ export default function App() {
           <p className="mt-5 text-lg text-slate-600 leading-relaxed">
             The Australian Cardiovascular disease Data Commons (ACDC) connects
             researchers, clinicians, and data custodians to share data securely
-            and collaboratively under FAIR and ethical principles.
+            and collaboratively under FAIR (Findable, Accessible, Interoperable,
+            and Reusable) and ethical principles.
           </p>
         </section>
       </main>
