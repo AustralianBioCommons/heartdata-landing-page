@@ -60,7 +60,7 @@ export default function App() {
         </a>{" "}
         ·{" "}
         <a
-          href="/policies/privacy.html"
+          href="/docs/ACDC_Privacy_Policy.pdf"
           className="underline underline-offset-4 hover:text-[#c80045]"
         >
           Privacy
