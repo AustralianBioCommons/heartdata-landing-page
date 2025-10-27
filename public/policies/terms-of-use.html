@@ -15,16 +15,14 @@
   </head>
   <body>
     <header class="hero">
-      <center>
-        <h1>
-          Australian Cardiovascular disease Data Commons (ACDC) Platform: Terms
-          of Use
-        </h1>
-        <p>
-          These Terms of Use apply to the ACDC platform and all associated
-          content.
-        </p>
-      </center>
+      <h1>
+        Australian Cardiovascular disease Data Commons (ACDC) Platform: Terms of
+        Use
+      </h1>
+      <p>
+        These Terms of Use apply to the ACDC platform and all associated
+        content.
+      </p>
     </header>
 
     <main>
@@ -244,5 +242,12 @@
         <a href="#">Contact</a>
       </p>
     </footer>
+    <script>
+      // Open all .pdf links in a new tab safely
+      document.querySelectorAll('a[href$=".pdf"]').forEach((a) => {
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+      });
+    </script>
   </body>
 </html>
