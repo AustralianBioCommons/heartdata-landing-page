@@ -1,8 +1,82 @@
 @import "tailwindcss";
 
-/* Custom tweaks */
+@theme {
+  /* Primary */
+  --color-primary: #004288;
+  --color-primary-dark: #002c5f;
+  --color-primary-light: #6b9fd4;
+  --color-on-primary: #ffffff;
+
+  /* Secondary (burgundy -- CTAs only) */
+  --color-secondary: #8b1a3a;
+  --color-on-secondary: #ffffff;
+
+  /* Tertiary (teal -- data indicators) */
+  --color-tertiary: #0e7c6b;
+  --color-on-tertiary: #ffffff;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f5f6f8;
+  --color-surface-container: #eef0f4;
+
+  /* On-surface */
+  --color-on-surface: #1a1f36;
+  --color-on-surface-variant: #4a5068;
+
+  /* Outlines */
+  --color-outline: #d1d5db;
+  --color-outline-light: #e5e7eb;
+
+  /* Error */
+  --color-error: #ba1a1a;
+
+  /* Fonts */
+  --font-headline: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Base styles */
 html,
 body,
 #root {
   height: 100%;
+}
+
+/* Material Symbols config */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* Scroll reveal animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+/* Hero gradient overlay -- multi-stop for smooth fade */
+.hero-gradient-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.95) 20%,
+    rgba(255, 255, 255, 0.7) 45%,
+    rgba(255, 255, 255, 0.3) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Tabular numbers for data tables */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
