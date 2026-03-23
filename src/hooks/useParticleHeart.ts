@@ -1,15 +1,24 @@
 import { useEffect, useRef } from "react";
 import type { RefObject } from "react";
 
+interface BloodCell {
+  mesh: import("three").Mesh;
+  vx: number;
+  vy: number;
+  vz: number;
+  rotVx: number;
+  rotVy: number;
+  rotVz: number;
+  radius: number;
+}
+
 export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>) {
-  const mouseRef = useRef({ x: 0, y: 0 });
   const isVisibleRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Respect reduced motion preference
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -17,161 +26,140 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
     let animationId: number;
     let disposed = false;
 
-    // Dynamic import for code splitting
     import("three").then((THREE) => {
       if (disposed) return;
 
+      // --- Scene ---
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({
-        canvas,
-        alpha: true,
-        antialias: true,
-      });
+      scene.background = new THREE.Color("#7A1A1A");
 
+      const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+      camera.position.set(0, 0, 8);
+      camera.lookAt(0, 0, 0);
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Particle count based on device capability
-      const isLowEnd =
-        typeof navigator.hardwareConcurrency !== "undefined" &&
-        navigator.hardwareConcurrency < 4;
-      const particleCount = isLowEnd ? 1500 : 3000;
+      // --- Lighting ---
+      const ambient = new THREE.AmbientLight("#551111", 0.8);
+      scene.add(ambient);
 
-      // --- Heart shape generation ---
-      const positions = new Float32Array(particleCount * 3);
-      const originalPositions = new Float32Array(particleCount * 3);
-      const colors = new Float32Array(particleCount * 3);
-      const sizes = new Float32Array(particleCount);
+      const dirLight = new THREE.DirectionalLight("#FF8888", 1.0);
+      dirLight.position.set(3, 4, 5);
+      scene.add(dirLight);
 
-      const primaryLight = new THREE.Color("#6b9fd4");
-      const warmTint = new THREE.Color("#a8b4d4");
+      const fillLight = new THREE.DirectionalLight("#882222", 0.4);
+      fillLight.position.set(-2, -1, 3);
+      scene.add(fillLight);
 
-      for (let i = 0; i < particleCount; i++) {
-        // Parametric heart surface with jitter
-        const u = Math.random() * Math.PI * 2;
-        const v = Math.random() * Math.PI;
-
-        const sinU = Math.sin(u);
-        const cosU = Math.cos(u);
-        const sinV = Math.sin(v);
-        const cosV = Math.cos(v);
-
-        // Heart surface equation
-        let x = sinV * (15 * sinU - 4 * Math.sin(3 * u));
-        let y =
-          8 * cosV -
-          (13 * cosU - 5 * Math.cos(2 * u) - 2 * Math.cos(3 * u) - Math.cos(4 * u));
-        let z = sinV * (15 * cosU) * 0.3;
-
-        // Scale and add jitter for organic feel
-        const scale = 0.04;
-        const jitter = 0.15;
-        x = x * scale + (Math.random() - 0.5) * jitter;
-        y = y * scale + (Math.random() - 0.5) * jitter;
-        z = z * scale + (Math.random() - 0.5) * jitter;
-
-        const idx = i * 3;
-        positions[idx] = x;
-        positions[idx + 1] = y;
-        positions[idx + 2] = z;
-        originalPositions[idx] = x;
-        originalPositions[idx + 1] = y;
-        originalPositions[idx + 2] = z;
-
-        // Color gradient based on Y position (normalized)
-        const t = (y + 1) / 2;
-        const color = primaryLight.clone().lerp(warmTint, t);
-        colors[idx] = color.r;
-        colors[idx + 1] = color.g;
-        colors[idx + 2] = color.b;
-
-        // Size variation
-        sizes[i] = 0.5 + Math.random() * 1.5;
-      }
-
-      // --- Particle system ---
-      const geometry = new THREE.BufferGeometry();
-      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-      geometry.setAttribute("aSize", new THREE.BufferAttribute(sizes, 1));
-
-      const material = new THREE.ShaderMaterial({
-        vertexShader: `
-          attribute float aSize;
-          varying vec3 vColor;
-          varying float vOpacity;
-          void main() {
-            vColor = color;
-            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_PointSize = aSize * (200.0 / -mvPosition.z);
-            gl_Position = projectionMatrix * mvPosition;
-            // Depth-based opacity
-            vOpacity = smoothstep(8.0, 3.0, -mvPosition.z);
-          }
-        `,
-        fragmentShader: `
-          varying vec3 vColor;
-          varying float vOpacity;
-          void main() {
-            // Soft circle
-            float dist = length(gl_PointCoord - vec2(0.5));
-            if (dist > 0.5) discard;
-            float alpha = smoothstep(0.5, 0.2, dist) * vOpacity;
-            gl_FragColor = vec4(vColor, alpha * 0.85);
-          }
-        `,
+      // --- Shared geometry & material ---
+      // Blood cell shape: large radius, fat tube = tiny hole, mostly disc
+      // Then squash Y to make it slightly oval (biconcave disc)
+      // 20% smaller: 0.28*0.8=0.224, 0.22*0.8=0.176
+      const torusGeo = new THREE.TorusGeometry(0.224, 0.176, 12, 24);
+      torusGeo.scale(1.0, 0.85, 1.0); // slightly oval, not perfect circle
+      const cellMat = new THREE.MeshPhongMaterial({
+        color: "#c53030",
+        emissive: "#3A0808",
+        specular: "#FF6666",
+        shininess: 40,
         transparent: true,
-        vertexColors: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
+        opacity: 0.46, // 50% lighter (0.92 * 0.5)
       });
 
-      const particles = new THREE.Points(geometry, material);
-      scene.add(particles);
+      // --- Cell management ---
+      const cells: BloodCell[] = [];
+      const MAX_CELLS = 160; // 400% more (40 * 4)
+      const CELL_RADIUS = 0.4; // smaller collision radius to match
 
-      // --- Connection lines ---
-      const linePositions: number[] = [];
-      const maxConnectionDist = 0.35;
-      const maxConnections = isLowEnd ? 800 : 2000;
-      let connectionCount = 0;
+      // View bounds (approximate at z=0 for camera at z=8, fov=50)
+      let viewW = 7;
+      let viewH = 4;
+      function spawnCell() {
+        if (cells.length >= MAX_CELLS) return;
 
-      for (let i = 0; i < particleCount && connectionCount < maxConnections; i++) {
-        for (let j = i + 1; j < particleCount && connectionCount < maxConnections; j++) {
-          const dx = positions[i * 3] - positions[j * 3];
-          const dy = positions[i * 3 + 1] - positions[j * 3 + 1];
-          const dz = positions[i * 3 + 2] - positions[j * 3 + 2];
-          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        const mesh = new THREE.Mesh(torusGeo, cellMat);
 
-          if (dist < maxConnectionDist) {
-            linePositions.push(
-              positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2],
-              positions[j * 3], positions[j * 3 + 1], positions[j * 3 + 2]
-            );
-            connectionCount++;
+        // Spawn well off-screen left so cells are never seen appearing
+        const x = -(viewW / 2) - 1;
+        const y = (Math.random() - 0.5) * viewH * 1.2; // full height + beyond edges
+        const z = (Math.random() - 0.5) * 2;
+        mesh.position.set(x, y, z);
+
+        // Random initial rotation (natural tumble)
+        mesh.rotation.set(
+          Math.random() * Math.PI * 2,
+          Math.random() * Math.PI * 2,
+          Math.random() * Math.PI * 2
+        );
+
+        // Inject with high initial velocity, will decelerate to laminar speed
+        const angle = (Math.random() - 0.5) * Math.PI; // full 180 arc
+        const injectSpeed = 0.03 + Math.random() * 0.02; // 4-8x faster than cruise
+        const vx = Math.cos(angle) * injectSpeed;
+        const vy = Math.sin(angle) * injectSpeed;
+        const vz = (Math.random() - 0.5) * 0.004;
+
+        // Gentle tumble
+        const rotVx = (Math.random() - 0.5) * 0.008;
+        const rotVy = (Math.random() - 0.5) * 0.005;
+        const rotVz = (Math.random() - 0.5) * 0.006;
+
+        // Uniform size (tight range: 0.9 to 1.1)
+        const s = 0.9 + Math.random() * 0.2;
+        mesh.scale.set(s, s, s);
+
+        scene.add(mesh);
+        cells.push({ mesh, vx, vy, vz, rotVx, rotVy, rotVz, radius: CELL_RADIUS * s });
+      }
+
+      // --- Collision ---
+      function resolveCollisions() {
+        for (let i = 0; i < cells.length; i++) {
+          for (let j = i + 1; j < cells.length; j++) {
+            const a = cells[i];
+            const b = cells[j];
+            const dx = b.mesh.position.x - a.mesh.position.x;
+            const dy = b.mesh.position.y - a.mesh.position.y;
+            const dz = b.mesh.position.z - a.mesh.position.z;
+            const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+            const minDist = a.radius + b.radius;
+
+            if (dist < minDist && dist > 0.001) {
+              // Push apart
+              const overlap = (minDist - dist) / 2;
+              const nx = dx / dist;
+              const ny = dy / dist;
+              const nz = dz / dist;
+
+              a.mesh.position.x -= nx * overlap * 0.5;
+              a.mesh.position.y -= ny * overlap * 0.5;
+              a.mesh.position.z -= nz * overlap * 0.5;
+              b.mesh.position.x += nx * overlap * 0.5;
+              b.mesh.position.y += ny * overlap * 0.5;
+              b.mesh.position.z += nz * overlap * 0.5;
+
+              // Soft velocity deflection (damped)
+              const dvx = a.vx - b.vx;
+              const dvy = a.vy - b.vy;
+              const dvz = a.vz - b.vz;
+              const dot = dvx * nx + dvy * ny + dvz * nz;
+
+              if (dot > 0) {
+                const impulse = dot * 0.45; // heavy -- cells knock each other about
+                a.vx -= impulse * nx;
+                a.vy -= impulse * ny;
+                a.vz -= impulse * nz;
+                b.vx += impulse * nx;
+                b.vy += impulse * ny;
+                b.vz += impulse * nz;
+              }
+            }
           }
         }
       }
 
-      const lineGeometry = new THREE.BufferGeometry();
-      lineGeometry.setAttribute(
-        "position",
-        new THREE.Float32BufferAttribute(linePositions, 3)
-      );
-
-      const lineMaterial = new THREE.LineBasicMaterial({
-        color: "#6b9fd4",
-        transparent: true,
-        opacity: 0.06,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      });
-
-      const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
-      scene.add(lines);
-
-      camera.position.z = 5;
-
-      // --- Resize handling ---
+      // --- Resize ---
       const updateSize = () => {
         const parent = canvas.parentElement;
         if (!parent) return;
@@ -180,88 +168,95 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
         renderer.setSize(w, h);
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
+
+        // Recalculate view bounds
+        const vFov = (camera.fov * Math.PI) / 180;
+        viewH = 2 * Math.tan(vFov / 2) * camera.position.z;
+        viewW = viewH * camera.aspect;
       };
 
       const resizeObserver = new ResizeObserver(updateSize);
       resizeObserver.observe(canvas.parentElement!);
       updateSize();
 
-      // --- Intersection observer to pause when off-screen ---
+      // --- Visibility ---
       const intersectionObserver = new IntersectionObserver(
-        ([entry]) => {
-          isVisibleRef.current = entry.isIntersecting;
-        },
+        ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
         { threshold: 0 }
       );
       intersectionObserver.observe(canvas);
 
-      // --- Heartbeat timing ---
-      // Double-peak Gaussian for realistic lub-dub
-      const gaussian = (x: number, mean: number, sigma: number) =>
-        Math.exp(-((x - mean) ** 2) / (2 * sigma ** 2));
+      // --- Spawn timer ---
+      let timeSinceSpawn = 0;
+      let nextSpawnDelay = 0.03 + Math.random() * 0.05; // much faster spawning
 
-      let time = 0;
+      // Start empty -- cells spawn in from the left only
 
-      // If reduced motion, render one static frame
       if (prefersReducedMotion) {
         renderer.render(scene, camera);
         return;
       }
 
-      // --- Animation loop ---
+      // --- Animation ---
+      let lastTime = performance.now();
+      const animStartTime = performance.now();
+      const RAMP_DURATION = 24000; // 14 seconds to reach baseline
+      const FAST_MULT = 3.0; // 200% faster at start
+
       const animate = () => {
         animationId = requestAnimationFrame(animate);
-
         if (!isVisibleRef.current) return;
 
-        time += 0.02;
+        const now = performance.now();
+        const dt = Math.min((now - lastTime) / 1000, 0.05); // cap at 50ms
+        lastTime = now;
 
-        // Heartbeat: ~75 BPM, cycle period ~0.8s mapped to animation time
-        const cycle = time % 4; // 4 "animation seconds" per beat at 0.02 increment
-        const cycleNorm = cycle / 4;
-        const lub = gaussian(cycleNorm, 0.08, 0.03) * 0.12;
-        const dub = gaussian(cycleNorm, 0.28, 0.04) * 0.06;
-        const pulse = 1.0 + lub + dub;
+        // Linear ramp down: 3x at start → 1x over 8s
+        const elapsed = now - animStartTime;
+        const rampT = Math.min(1, elapsed / RAMP_DURATION);
+        const speedMult = FAST_MULT - (FAST_MULT - 1.5) * rampT; // baseline is 1.2x (20% faster)
 
-        particles.scale.set(pulse, pulse, pulse);
-        lines.scale.set(pulse, pulse, pulse);
+        // Spawn new cells
+        timeSinceSpawn += dt;
+        if (timeSinceSpawn >= nextSpawnDelay) {
+          spawnCell();
+          timeSinceSpawn = 0;
+          nextSpawnDelay = 0.03 + Math.random() * 0.05;
+        }
 
-        // Slow rotation
-        particles.rotation.y += 0.001;
-        lines.rotation.y = particles.rotation.y;
+        // Update cells
+        for (let i = cells.length - 1; i >= 0; i--) {
+          const c = cells[i];
 
-        // Mouse interaction -- soft repulsion
-        const posAttr = geometry.attributes.position;
-        const mx = (mouseRef.current.x / window.innerWidth) * 2 - 1;
-        const my = -(mouseRef.current.y / window.innerHeight) * 2 + 1;
+          // Move (scaled by ramp multiplier)
+          c.mesh.position.x += c.vx * speedMult;
+          c.mesh.position.y += c.vy * speedMult;
+          c.mesh.position.z += c.vz * speedMult;
 
-        for (let i = 0; i < particleCount; i++) {
-          const idx = i * 3;
-          const ox = originalPositions[idx];
-          const oy = originalPositions[idx + 1];
-          const oz = originalPositions[idx + 2];
+          // Tumble
+          c.mesh.rotation.x += c.rotVx;
+          c.mesh.rotation.y += c.rotVy;
+          c.mesh.rotation.z += c.rotVz;
 
-          // Project to approximate screen space
-          const projX = ox * 0.5;
-          const projY = oy * 0.5;
-          const dx = projX - mx;
-          const dy = projY - my;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          // Drag: decelerate from injection speed toward cruise
+          c.vx *= 0.997;
+          c.vy *= 0.997;
+          c.vz *= 0.995;
+          c.vz += (-c.mesh.position.z * 0.0001);
+          // Gently nudge toward cruise speed rightward
+          c.vx += (0.007 - c.vx) * 0.005;
 
-          if (dist < 0.8) {
-            const force = (0.8 - dist) * 0.15;
-            const angle = Math.atan2(dy, dx);
-            positions[idx] = ox + Math.cos(angle) * force;
-            positions[idx + 1] = oy + Math.sin(angle) * force;
-            positions[idx + 2] = oz;
-          } else {
-            // Lerp back to original
-            positions[idx] += (ox - positions[idx]) * 0.05;
-            positions[idx + 1] += (oy - positions[idx + 1]) * 0.05;
-            positions[idx + 2] += (oz - positions[idx + 2]) * 0.05;
+          // Despawn if out of bounds (right, top, or bottom)
+          const despawnX = (viewW / 2) + 2;
+          const despawnY = (viewH / 2) + 3;
+          if (c.mesh.position.x > despawnX || Math.abs(c.mesh.position.y) > despawnY) {
+            scene.remove(c.mesh);
+            cells.splice(i, 1);
           }
         }
-        posAttr.needsUpdate = true;
+
+        // Collisions
+        resolveCollisions();
 
         renderer.render(scene, camera);
       };
@@ -274,22 +269,18 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
         cancelAnimationFrame(animationId);
         resizeObserver.disconnect();
         intersectionObserver.disconnect();
-        geometry.dispose();
-        material.dispose();
-        lineGeometry.dispose();
-        lineMaterial.dispose();
+        for (const c of cells) {
+          scene.remove(c.mesh);
+        }
+        cells.length = 0;
+        torusGeo.dispose();
+        cellMat.dispose();
         renderer.dispose();
       };
     });
 
-    // Mouse tracking
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      disposed = true;
     };
   }, [canvasRef]);
 }
