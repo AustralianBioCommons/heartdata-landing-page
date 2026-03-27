@@ -23,11 +23,11 @@ export default function StrategicGoals() {
   return (
     <section
       id="governance"
-      className="py-20 lg:py-28 bg-gradient-to-br from-[#002c5f] to-[#003d7a] text-white"
+      className="py-10 lg:py-16 bg-gradient-to-br from-[#002c5f] to-[#003d7a] text-white"
       aria-labelledby="goals-heading"
     >
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-14">
+        <div className="max-w-3xl mx-auto text-center mb-10">
           <h2
             id="goals-heading"
             className="font-headline text-2xl sm:text-3xl font-semibold mb-4"

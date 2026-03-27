@@ -17,7 +17,7 @@ const capabilities = [
 export default function OpportunityPrecision() {
   return (
     <SectionWrapper bg="bg-white" labelledBy="opportunity-heading">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
         {/* Metric cards */}
         <div className="grid grid-cols-2 gap-4">
           {metrics.map((m) => (

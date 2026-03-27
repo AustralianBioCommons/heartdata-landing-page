@@ -22,7 +22,7 @@ const phases = [
 export default function OutcomesRoadmap() {
   return (
     <SectionWrapper bg="bg-white" labelledBy="roadmap-heading">
-      <div className="text-center max-w-3xl mx-auto mb-12">
+      <div className="text-center max-w-3xl mx-auto mb-10">
         <h2
           id="roadmap-heading"
           className="font-headline text-2xl sm:text-3xl font-bold text-primary mb-4"

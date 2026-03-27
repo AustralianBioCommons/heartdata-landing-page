@@ -20,7 +20,7 @@ const affiliateLogos = [
 export default function Partners() {
   return (
     <SectionWrapper bg="bg-white" labelledBy="partners-heading">
-      <div className="text-center mb-12">
+      <div className="text-center mb-8">
         <h2
           id="partners-heading"
           className="font-headline text-xl sm:text-2xl font-semibold text-on-surface-variant"
@@ -30,7 +30,7 @@ export default function Partners() {
       </div>
 
       {/* Partner logos */}
-      <div className="flex flex-wrap justify-center items-center gap-12 mb-16">
+      <div className="flex flex-wrap justify-center items-center gap-12 mb-10">
         {partners.map((p) => (
           <div
             key={p.name}
@@ -47,13 +47,13 @@ export default function Partners() {
       </div>
 
       {/* Affiliate logos */}
-      <div className="border-t border-outline-light mb-12" />
+      <div className="border-t border-outline-light mb-8" />
       <div className="text-center mb-8">
         <span className="text-sm uppercase tracking-widest font-medium text-on-surface-variant">
           Affiliated Institutions
         </span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center mb-16">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-items-center mb-10">
         {affiliateLogos.map((logo) => (
           <div key={logo.src} className="flex items-center justify-center h-[80px] mix-blend-multiply">
             <img

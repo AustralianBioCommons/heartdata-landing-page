@@ -4,7 +4,7 @@ import MaterialIcon from "../ui/MaterialIcon";
 export default function StrategicSignificance() {
   return (
     <SectionWrapper bg="bg-surface-alt" labelledBy="significance-heading">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
         <div>
           <h2
             id="significance-heading"
