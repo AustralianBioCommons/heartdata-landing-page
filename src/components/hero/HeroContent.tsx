@@ -20,7 +20,7 @@ export default function HeroContent() {
             Explore Data Commons
           </a>
           <a
-            href="#cohorts"
+            href="#datasets"
             className="px-8 py-3.5 border border-white/40 text-white font-semibold rounded hover:bg-white/10 transition-colors duration-150"
           >
             Request Access

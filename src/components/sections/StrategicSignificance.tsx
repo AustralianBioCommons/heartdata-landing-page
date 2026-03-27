@@ -54,7 +54,7 @@ export default function StrategicSignificance() {
           <p className="text-[#b0c8e8] leading-relaxed mb-8 relative">
             &ldquo;By adopting global data sharing standards, we ensure that
             Australian cardiovascular data can be harmonized with the
-            world&rsquo;s largest cohorts, amplifying our national research
+            world&rsquo;s largest datasets, amplifying our national research
             impact.&rdquo;
           </p>
           <div className="flex items-center gap-4 relative">

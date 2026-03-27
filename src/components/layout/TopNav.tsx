@@ -3,7 +3,7 @@ import MaterialIcon from "../ui/MaterialIcon";
 
 const navLinks = [
   { label: "Research", href: "#research" },
-  { label: "Cohorts", href: "#cohorts" },
+  { label: "Datasets", href: "#datasets" },
   { label: "Data Commons", href: "https://commons.heartdata.baker.edu.au", external: true },
   { label: "Governance", href: "#governance" },
 ];

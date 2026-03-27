@@ -21,18 +21,17 @@ function formatNumber(n: number): string {
 
 export default function FederatedCohorts() {
   return (
-    <SectionWrapper id="cohorts" bg="bg-surface-alt" labelledBy="cohorts-heading">
+    <SectionWrapper id="datasets" bg="bg-surface-alt" labelledBy="datasets-heading">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-10">
         <div>
           <h2
-            id="cohorts-heading"
+            id="datasets-heading"
             className="font-headline text-2xl sm:text-3xl font-bold text-primary"
           >
-            Federated Research Cohorts
+            Research Datasets
           </h2>
           <p className="text-on-surface-variant mt-2 text-sm">
-            Current data integration status across major Australian
-            cardiovascular studies.
+            Current data availability across ACDC research datasets.
           </p>
         </div>
         <div className="text-right shrink-0">
@@ -49,15 +48,18 @@ export default function FederatedCohorts() {
       <div className="border border-outline rounded-sm overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[600px]">
           <caption className="sr-only">
-            Omic data availability across ACDC federated research cohorts
+            Data availability across ACDC research datasets
           </caption>
           <thead>
             <tr className="bg-surface-alt border-b-2 border-outline">
               <th className="p-4 text-xs font-medium uppercase tracking-wider text-on-surface-variant sticky left-0 bg-surface-alt">
-                Cohort Name
+                Dataset Name
               </th>
               <th className="p-4 text-xs font-medium uppercase tracking-wider text-on-surface-variant text-right">
                 Subjects
+              </th>
+              <th className="p-4 text-xs font-medium uppercase tracking-wider text-on-surface-variant text-center">
+                Clinical
               </th>
               <th className="p-4 text-xs font-medium uppercase tracking-wider text-on-surface-variant text-center">
                 Genomic
@@ -84,6 +86,9 @@ export default function FederatedCohorts() {
                 </td>
                 <td className="p-4 text-right font-mono tabular-nums text-on-surface">
                   {formatNumber(cohort.subjects)}
+                </td>
+                <td className="p-4 text-center" aria-label={`${cohort.name}: Clinical ${cohort.clinical ? "available" : "not available"}`}>
+                  <AvailabilityDot available={cohort.clinical} />
                 </td>
                 <td className="p-4 text-center" aria-label={`${cohort.name}: Genomic ${cohort.genomic ? "available" : "not available"}`}>
                   <AvailabilityDot available={cohort.genomic} />

@@ -40,7 +40,7 @@ export default function OpportunityPrecision() {
             The Opportunity for Precision
           </h2>
           <p className="text-on-surface-variant text-base leading-relaxed mb-8">
-            Large, well-phenotyped cohorts provide the power to identify specific
+            Large, well-phenotyped datasets provide the power to identify specific
             markers. By integrating Genomic, Lipidomic, Proteomic, and
             Metabolomic data, ACDC enables researchers to evaluate risk with
             unprecedented granularity.

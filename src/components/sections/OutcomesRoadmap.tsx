@@ -6,7 +6,7 @@ const phases = [
     timeline: "YEARS 1-2",
     title: "Improved Researcher Capacity",
     description:
-      "Initial operations focus on centralizing major Australian cohorts (AusDiab, FIELD, BioHEART) and deploying the discovery portal. This phase drastically reduces the time for researchers to discover and request access to harmonized multi-omic data.",
+      "Initial operations focus on centralizing major Australian research datasets (AusDiab, EDCAD, Baker Biobank, CAUGHT-CAD, CDAH) and deploying the discovery portal. This phase drastically reduces the time for researchers to discover and request access to harmonized multi-omic data.",
     accentColor: "border-l-primary",
   },
   {
