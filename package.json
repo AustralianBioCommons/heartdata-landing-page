@@ -9,6 +9,9 @@
     "preview": "vite preview --port 5173",
     "lint": "echo 'add eslint later'"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
