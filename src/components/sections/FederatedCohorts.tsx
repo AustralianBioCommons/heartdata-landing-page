@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SectionWrapper from "../ui/SectionWrapper";
 import MaterialIcon from "../ui/MaterialIcon";
-import { cohorts, totalSubjects, totalGenomic, totalLipidomic } from "../../data/cohorts";
+import { cohorts, totalClinical, totalGenomic, totalLipidomic } from "../../data/cohorts";
 
 const VISIBLE_COUNT = 5;
 
@@ -10,10 +10,10 @@ function formatNumber(n: number): string {
 }
 
 const summaryStats = [
-  { value: formatNumber(totalSubjects), label: "Participants" },
+  { value: formatNumber(totalClinical), label: "Clinical Records" },
   { value: formatNumber(totalGenomic), label: "Genomic Profiles" },
   { value: formatNumber(totalLipidomic), label: "Lipidomic Profiles" },
-  { value: String(cohorts.length), label: "Cohorts" },
+  { value: String(cohorts.length), label: "Datasets" },
 ];
 
 export default function FederatedCohorts() {
@@ -68,7 +68,7 @@ export default function FederatedCohorts() {
                 Outcomes
               </th>
               <th className="p-4 text-xs font-medium uppercase tracking-wider text-on-surface-variant text-right sticky top-0 bg-surface-alt">
-                Subjects
+                Clinical
               </th>
               <th className="p-4 text-xs font-medium uppercase tracking-wider text-on-surface-variant text-right sticky top-0 bg-surface-alt">
                 Genomic
@@ -91,7 +91,7 @@ export default function FederatedCohorts() {
                   {cohort.outcomes}
                 </td>
                 <td className="p-4 text-right font-mono tabular-nums text-on-surface text-sm">
-                  {formatNumber(cohort.subjects)}
+                  {formatNumber(cohort.clinical)}
                 </td>
                 <td className="p-4 text-right font-mono tabular-nums text-sm">
                   {cohort.genomic !== null ? (
@@ -116,7 +116,7 @@ export default function FederatedCohorts() {
                 Total ({cohorts.length} cohorts)
               </td>
               <td className="p-4 text-right font-mono tabular-nums font-semibold text-primary text-sm">
-                {formatNumber(totalSubjects)}
+                {formatNumber(totalClinical)}
               </td>
               <td className="p-4 text-right font-mono tabular-nums font-semibold text-primary text-sm">
                 {formatNumber(totalGenomic)}
