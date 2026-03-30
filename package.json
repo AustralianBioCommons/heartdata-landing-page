@@ -9,9 +9,13 @@
     "preview": "vite preview --port 5173",
     "lint": "echo 'add eslint later'"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "react-dom": "^19.2.1",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
@@ -19,6 +23,7 @@
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.183.1",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.33.0",
