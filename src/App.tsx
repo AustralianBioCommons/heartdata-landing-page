@@ -2,11 +2,9 @@ import TopNav from "./components/layout/TopNav";
 import Footer from "./components/layout/Footer";
 import HeroSection from "./components/hero/HeroSection";
 import CriticalChallenge from "./components/sections/CriticalChallenge";
-import OpportunityPrecision from "./components/sections/OpportunityPrecision";
 import FederatedCohorts from "./components/sections/FederatedCohorts";
-import OutcomesRoadmap from "./components/sections/OutcomesRoadmap";
+import OpportunityPrecision from "./components/sections/OpportunityPrecision";
 import StrategicSignificance from "./components/sections/StrategicSignificance";
-import StrategicGoals from "./components/sections/StrategicGoals";
 import Partners from "./components/sections/Partners";
 
 export default function App() {
@@ -16,11 +14,9 @@ export default function App() {
       <main className="flex-1 pt-16">
         <HeroSection />
         <CriticalChallenge />
-        <OpportunityPrecision />
         <FederatedCohorts />
-        <OutcomesRoadmap />
+        <OpportunityPrecision />
         <StrategicSignificance />
-        <StrategicGoals />
         <Partners />
       </main>
       <Footer />

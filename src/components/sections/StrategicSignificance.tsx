@@ -1,69 +1,115 @@
 import SectionWrapper from "../ui/SectionWrapper";
 import MaterialIcon from "../ui/MaterialIcon";
 
+const governanceBodies = [
+  {
+    acronym: "SAC",
+    name: "Scientific Advisory Committee",
+    description: "Scientific oversight of ACDC development and implementation.",
+    icon: "science",
+  },
+  {
+    acronym: "PGWG",
+    name: "Platform Governance Working Group",
+    description: "Advises on the operation, access and use of the ACDC.",
+    icon: "groups",
+  },
+  {
+    acronym: "PMC",
+    name: "Project Management Committee",
+    description: "Oversight of the project, risk assessment and deliverable review.",
+    icon: "assignment",
+  },
+  {
+    acronym: "DAC",
+    name: "Data Access Committee",
+    description: "Review and approval of data access applications.",
+    icon: "verified_user",
+  },
+];
+
 export default function StrategicSignificance() {
   return (
-    <SectionWrapper bg="bg-surface-alt" labelledBy="significance-heading">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
-        <div>
-          <h2
-            id="significance-heading"
-            className="font-headline text-2xl sm:text-3xl font-bold text-primary mb-6"
-          >
-            Strategic Significance
-          </h2>
-          <p className="text-on-surface-variant text-base leading-relaxed mb-8">
-            ACDC establishes a standardized infrastructure pathway, providing a
-            blueprint for national research programs in collaboration with the{" "}
-            <strong>Australian BioCommons</strong>.
-          </p>
-          <div className="space-y-4">
-            <div className="flex gap-4 p-4 bg-white border border-outline-light rounded-sm">
-              <MaterialIcon icon="public" className="text-primary shrink-0 text-xl" />
-              <div>
-                <h4 className="font-semibold text-on-surface text-sm">
-                  International Alignment
-                </h4>
-                <p className="text-xs text-on-surface-variant mt-1">
-                  Architecture strictly adheres to NIH and GA4GH standards,
-                  ensuring Australian research is globally interoperable and
-                  competitive.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-4 p-4 bg-white border border-outline-light rounded-sm">
-              <MaterialIcon icon="account_tree" className="text-primary shrink-0 text-xl" />
-              <div>
-                <h4 className="font-semibold text-on-surface text-sm">
-                  Scalable Infrastructure
-                </h4>
-                <p className="text-xs text-on-surface-variant mt-1">
-                  The ACDC framework serves as a reference model for other
-                  high-performance clinical data initiatives across the
-                  continent.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <SectionWrapper bg="bg-white" labelledBy="governance-heading">
+      <div className="mb-8">
+        <h2
+          id="governance-heading"
+          className="font-headline text-2xl sm:text-3xl font-bold text-primary mb-4"
+        >
+          Trust &amp; Governance
+        </h2>
+        <p className="text-on-surface-variant text-sm max-w-3xl">
+          Rigorous oversight ensuring secure, ethical access to sensitive
+          cardiovascular research data.
+        </p>
+      </div>
 
-        {/* Quote panel */}
-        <div className="bg-primary p-10 text-on-primary rounded-sm relative overflow-hidden">
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-          <h3 className="text-xl font-semibold mb-4 relative">Global Standards</h3>
-          <p className="text-[#b0c8e8] leading-relaxed mb-8 relative">
-            &ldquo;By adopting global data sharing standards, we ensure that
-            Australian cardiovascular data can be harmonized with the
-            world&rsquo;s largest datasets, amplifying our national research
-            impact.&rdquo;
-          </p>
-          <div className="flex items-center gap-4 relative">
-            <div className="w-10 h-[1px] bg-primary-light" />
-            <span className="uppercase tracking-wider text-xs font-semibold text-[#b0c8e8]">
-              NIH &amp; GA4GH Compliant
-            </span>
+      {/* Governance Bodies */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        {governanceBodies.map((b) => (
+          <div
+            key={b.acronym}
+            className="flex gap-4 p-5 bg-surface-alt border border-outline-light rounded-sm"
+          >
+            <div className="w-12 h-12 rounded-sm bg-primary/10 flex items-center justify-center shrink-0">
+              <span className="text-primary font-bold text-sm">{b.acronym}</span>
+            </div>
+            <div>
+              <h4 className="font-semibold text-on-surface text-sm">{b.name}</h4>
+              <p className="text-xs text-on-surface-variant mt-1">{b.description}</p>
+            </div>
           </div>
+        ))}
+      </div>
+
+      {/* Security & Compliance */}
+      <div className="flex gap-4 p-5 bg-surface-alt border border-outline-light rounded-sm mb-8">
+        <MaterialIcon icon="shield" className="text-tertiary text-xl shrink-0 mt-0.5" />
+        <div>
+          <h4 className="font-semibold text-on-surface text-sm">Security &amp; Compliance</h4>
+          <p className="text-xs text-on-surface-variant mt-1">
+            Industry-standard security practices with encrypted storage,
+            continuous monitoring, and sovereign Australian infrastructure.
+            Compliant with all relevant laws and regulations.
+          </p>
         </div>
+      </div>
+
+      {/* International Standards Strip */}
+      <div className="flex items-center justify-center gap-8 py-4 border-t border-outline-light mb-8">
+        <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+          NIH Compliant
+        </span>
+        <div className="w-px h-5 bg-outline" />
+        <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+          GA4GH Standards
+        </span>
+        <div className="w-px h-5 bg-outline" />
+        <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+          Gen3 Data Commons
+        </span>
+      </div>
+
+      {/* Publication Callout */}
+      <div className="bg-secondary/5 border border-secondary/20 rounded-sm p-6 flex items-center gap-4">
+        <MaterialIcon icon="menu_book" className="text-secondary text-2xl shrink-0" />
+        <div className="flex-1">
+          <h4 className="font-semibold text-on-surface text-sm">
+            Published in Nature Reviews Cardiology
+          </h4>
+          <p className="text-xs text-on-surface-variant mt-1">
+            Building the Australian Cardiovascular disease Data Commons
+            &mdash; September 2025
+          </p>
+        </div>
+        <a
+          href="https://www.nature.com/articles/s41569-025-01208-0"
+          target="_blank"
+          rel="noopener"
+          className="text-secondary text-sm font-semibold hover:underline shrink-0"
+        >
+          Read paper &rarr;
+        </a>
       </div>
     </SectionWrapper>
   );
