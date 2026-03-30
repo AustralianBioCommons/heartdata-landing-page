@@ -5,23 +5,16 @@ const challenges = [
   {
     icon: "emergency",
     iconColor: "text-secondary",
-    title: "Urgency in Cardiology",
+    title: "The Burden of Cardiovascular Disease",
     description:
-      "Heart attacks occur every 10 minutes in Australia. Current standard risk factors\u2014hypertension, hyperlipidemia, and diabetes\u2014only partially explain the prevalence of Coronary Artery Disease (CAD).",
+      "Cardiovascular disease remains the leading cause of death worldwide. In Australia, one person suffers a heart attack every 10 minutes, and up to 27% of heart attack patients present with life-threatening events despite the absence of standard modifiable risk factors.",
   },
   {
     icon: "biotech",
     iconColor: "text-primary",
-    title: "Elucidating Residual Risk",
+    title: "Beyond Standard Risk Factors",
     description:
-      'We must elucidate mechanisms beyond standard factors. The \u201Cresidual risk\u201D remains high, requiring a deeper understanding of multi-omic interplay to predict and prevent future cardiac events.',
-  },
-  {
-    icon: "hub",
-    iconColor: "text-tertiary",
-    title: "A Multi-Omic Imperative",
-    description:
-      "Bridging genomic, proteomic, lipidomic, and metabolomic datasets is essential. Only by integrating these layers can we uncover the complex biological pathways driving cardiovascular disease.",
+      "Many patients progress to recurrent cardiac events despite optimal risk factor management, reflecting significant residual risk. Integrating genomic, lipidomic, proteomic, and metabolomic data is essential to uncover the biological mechanisms driving this gap.",
   },
 ];
 
@@ -32,9 +25,9 @@ export default function CriticalChallenge() {
         id="challenge-heading"
         className="font-headline text-2xl sm:text-3xl font-bold text-primary mb-6"
       >
-        The Critical Challenge
+        The Research Challenge
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {challenges.map((c) => (
           <div
             key={c.title}

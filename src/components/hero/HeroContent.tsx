@@ -5,10 +5,15 @@ export default function HeroContent() {
         <h1 className="font-headline text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-6">
           Australian Cardiovascular disease Data Commons
         </h1>
-        <p className="text-lg text-white/70 font-normal max-w-2xl leading-relaxed mb-10">
-          Accelerating discovery science and clinical translation for coronary
-          artery disease through an innovative, accessible, and globally
-          connected data infrastructure.
+        <p className="text-lg text-white/80 font-normal max-w-2xl leading-relaxed mb-4">
+          Australia's first global standards-based human data commons. An
+          MRFF-funded national initiative unifying genomic, lipidomic, and
+          clinical data across 18 cardiovascular research cohorts to identify
+          novel biomarkers and therapeutic targets for coronary artery disease.
+        </p>
+        <p className="text-sm text-white/50 font-medium tracking-wide mb-10">
+          ~394,000 individuals &middot; 54,000+ genomic profiles &middot;
+          44,000+ lipidomic profiles
         </p>
         <div className="flex flex-wrap gap-4">
           <a

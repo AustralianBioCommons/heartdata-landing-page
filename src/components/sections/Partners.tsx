@@ -65,23 +65,6 @@ export default function Partners() {
         ))}
       </div>
 
-      {/* Quote */}
-      <div className="max-w-3xl mx-auto border-l-[3px] border-primary pl-6 py-2">
-        <p className="text-on-surface-variant leading-relaxed text-base">
-          &ldquo;The ACDC represents a generational shift in how we handle
-          cardiovascular data in Australia. By bridging the gap between
-          discovery science and clinical practice, we are saving lives through
-          data precision.&rdquo;
-        </p>
-        <div className="mt-4">
-          <div className="font-semibold text-primary text-sm">
-            ACvA Strategic Steering Committee
-          </div>
-          <div className="text-on-surface-variant text-xs mt-0.5">
-            Australian Cardiovascular Alliance
-          </div>
-        </div>
-      </div>
     </SectionWrapper>
   );
 }
