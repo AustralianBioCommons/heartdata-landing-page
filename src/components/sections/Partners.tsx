@@ -7,14 +7,14 @@ const partners = [
 ];
 
 const affiliateLogos = [
-  { src: "/images/logos/australian-biocommons.svg", alt: "Australian BioCommons" },
-  { src: "/images/logos/baker-heart-and-diabetes-institute.svg", alt: "Baker Heart and Diabetes Institute" },
-  { src: "/images/logos/bioplatforms-australia.svg", alt: "Bioplatforms Australia" },
-  { src: "/images/logos/cad-frontiers.svg", alt: "CAD Frontiers" },
-  { src: "/images/logos/medical-research-future-fund-mrff.svg", alt: "Medical Research Future Fund (MRFF)" },
-  { src: "/images/logos/national-research-infrastructure-for-australia-ncris.svg", alt: "National Research Infrastructure for Australia (NCRIS)" },
-  { src: "/images/logos/university-of-melbourne.svg", alt: "University of Melbourne" },
-  { src: "/images/logos/university-of-sydney.svg", alt: "University of Sydney" },
+  { src: "images/logos/australian-biocommons.svg", alt: "Australian BioCommons" },
+  { src: "images/logos/baker-heart-and-diabetes-institute.svg", alt: "Baker Heart and Diabetes Institute" },
+  { src: "images/logos/bioplatforms-australia.svg", alt: "Bioplatforms Australia" },
+  { src: "images/logos/cad-frontiers.svg", alt: "CAD Frontiers" },
+  { src: "images/logos/medical-research-future-fund-mrff.svg", alt: "Medical Research Future Fund (MRFF)" },
+  { src: "images/logos/national-research-infrastructure-for-australia-ncris.svg", alt: "National Research Infrastructure for Australia (NCRIS)" },
+  { src: "images/logos/university-of-melbourne.svg", alt: "University of Melbourne" },
+  { src: "images/logos/university-of-sydney.svg", alt: "University of Sydney" },
 ];
 
 export default function Partners() {
@@ -57,7 +57,7 @@ export default function Partners() {
         {affiliateLogos.map((logo) => (
           <div key={logo.src} className="flex items-center justify-center h-[80px] mix-blend-multiply">
             <img
-              src={logo.src}
+              src={`${import.meta.env.BASE_URL}${logo.src}`}
               alt={logo.alt}
               className="max-w-[120px] w-full h-auto opacity-80 hover:opacity-100 transition-opacity duration-200"
             />
