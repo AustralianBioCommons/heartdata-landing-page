@@ -9,7 +9,7 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="bg-surface-alt border-t border-outline-light">
-      <div className="mx-auto max-w-6xl px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8">
         <div className="flex flex-col gap-3">
           <span className="text-lg font-bold text-on-surface font-headline tracking-tight">
             ACDC
@@ -19,12 +19,12 @@ export default function Footer() {
             Data Commons (ACDC). Supported by ACvA &amp; Australian BioCommons.
           </p>
         </div>
-        <div className="flex flex-wrap gap-x-8 gap-y-3 md:justify-end items-center">
+        <div className="flex flex-wrap gap-x-6 gap-y-3 md:justify-end items-center">
           {footerLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-on-surface-variant text-xs uppercase tracking-wider hover:text-primary hover:underline underline-offset-4 transition-colors duration-150"
+              className="whitespace-nowrap text-on-surface-variant text-xs uppercase tracking-wider hover:text-primary hover:underline underline-offset-4 transition-colors duration-150"
             >
               {link.label}
             </a>
