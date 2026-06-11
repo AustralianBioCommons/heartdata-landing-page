@@ -1,3 +1,5 @@
+import { cohorts } from "../../data/cohorts";
+
 export default function HeroContent() {
   return (
     <div className="relative z-20 mx-auto max-w-6xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center h-full">
@@ -8,7 +10,7 @@ export default function HeroContent() {
         <p className="text-lg text-white/80 font-normal max-w-2xl leading-relaxed mb-4">
           Australia's first global standards-based human data commons. An
           MRFF-funded national initiative unifying genomic, lipidomic, and
-          clinical data across 18 cardiovascular research cohorts to identify
+          clinical data across {cohorts.length} cardiovascular research cohorts to identify
           novel biomarkers and therapeutic targets for coronary artery disease.
         </p>
         <p className="text-sm text-white/50 font-medium tracking-wide mb-10">

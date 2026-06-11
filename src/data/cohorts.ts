@@ -27,7 +27,6 @@ export const cohorts: Cohort[] = [
   { name: "ADVANCE", outcomes: "CVD (<5 yr)", subjects: 11140, clinical: 11140, genomic: null, lipidomic: 3779 },
   { name: "PROPHECY", outcomes: "CVD (<3 yr)", subjects: 1386, clinical: 1386, genomic: 1386, lipidomic: null },
   { name: "BIRCH", outcomes: "CVD (<3 yr)", subjects: 490, clinical: 490, genomic: null, lipidomic: 466 },
-  { name: "DaVinci", outcomes: "CVD (<3 yr)", subjects: 600, clinical: 600, genomic: 600, lipidomic: null },
 ];
 
 export const totalSubjects = cohorts.reduce((sum, c) => sum + c.subjects, 0);
