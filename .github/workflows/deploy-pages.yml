@@ -16,14 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: pnpm
 
       - name: Build app
         run: |
-          npm ci
-          VITE_BASE_PATH=/heartdata-landing-page/ npm run build
+          pnpm install --frozen-lockfile
+          VITE_BASE_PATH=/heartdata-landing-page/ pnpm build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
