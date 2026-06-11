@@ -16,12 +16,15 @@ jobs:
       - name: Checkout app
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
-        with: { node-version: 20 }
+        with: { node-version: 20, cache: pnpm }
 
       - name: Build app
-        run: npm ci && npm run build
+        run: pnpm install --frozen-lockfile && pnpm build
 
       - name: Configure AWS (assume prod role)
         uses: aws-actions/configure-aws-credentials@v4
