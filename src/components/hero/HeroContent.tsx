@@ -13,9 +13,9 @@ export default function HeroContent() {
           clinical data across {cohorts.length} cardiovascular research cohorts to identify
           novel biomarkers and therapeutic targets for coronary artery disease.
         </p>
-        <p className="text-sm text-white/50 font-medium tracking-wide mb-10">
-          ~394,000 individuals &middot; 54,000+ genomic profiles &middot;
-          44,000+ lipidomic profiles
+        <p className="text-base text-white/90 font-semibold tracking-wide mb-10">
+          ~394K individuals &middot; 54K+ genomic profiles &middot; 44K+
+          lipidomic profiles
         </p>
         <div className="flex flex-wrap gap-4">
           <a
