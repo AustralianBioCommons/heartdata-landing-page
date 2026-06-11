@@ -7,14 +7,14 @@ const challenges = [
     iconColor: "text-secondary",
     title: "The Burden of Cardiovascular Disease",
     description:
-      "Cardiovascular disease remains the leading cause of death worldwide. In Australia, one person suffers a heart attack every 10 minutes, and up to 27% of heart attack patients present with life-threatening events despite the absence of standard modifiable risk factors.",
+      "Cardiovascular disease is the leading cause of death worldwide. In Australia, one person suffers a heart attack every 10 minutes, and up to 27% of heart attack patients present with life-threatening events despite the absence of standard modifiable risk factors.",
   },
   {
     icon: "biotech",
     iconColor: "text-primary",
     title: "Beyond Standard Risk Factors",
     description:
-      "Many patients progress to recurrent cardiac events despite optimal risk factor management, reflecting significant residual risk. Integrating genomic, lipidomic, proteomic, and metabolomic data is essential to uncover the biological mechanisms driving this gap.",
+      "Many individuals progress to recurrent cardiac events despite optimal risk factor management, reflecting significant residual risk. Integrating genomic, lipidomic, proteomic, and metabolomic data is essential to uncover the biological mechanisms driving this gap.",
   },
 ];
 
