@@ -30,7 +30,7 @@ const governanceBodies = [
 
 export default function StrategicSignificance() {
   return (
-    <SectionWrapper bg="bg-white" labelledBy="governance-heading">
+    <SectionWrapper id="governance" bg="bg-white" labelledBy="governance-heading">
       <div className="mb-8">
         <h2
           id="governance-heading"
