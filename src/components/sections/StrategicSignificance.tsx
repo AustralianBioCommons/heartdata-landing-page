@@ -75,21 +75,6 @@ export default function StrategicSignificance() {
         </div>
       </div>
 
-      {/* International Standards Strip */}
-      <div className="flex items-center justify-center gap-8 py-4 border-t border-outline-light mb-8">
-        <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
-          NIH Compliant
-        </span>
-        <div className="w-px h-5 bg-outline" />
-        <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
-          GA4GH Standards
-        </span>
-        <div className="w-px h-5 bg-outline" />
-        <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
-          Gen3 Data Commons
-        </span>
-      </div>
-
       {/* Publication Callout */}
       <div className="bg-secondary/5 border border-secondary/20 rounded-sm p-6 flex items-center gap-4">
         <MaterialIcon icon="menu_book" className="text-secondary text-2xl shrink-0" />
