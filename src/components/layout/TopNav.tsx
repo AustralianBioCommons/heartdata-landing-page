@@ -1,11 +1,15 @@
 import { useState } from "react";
 import MaterialIcon from "../ui/MaterialIcon";
 
+// Base-aware so in-page anchors also work from standalone pages (e.g. about.html).
+const base = import.meta.env.BASE_URL;
+
 const navLinks = [
-  { label: "Research", href: "#research" },
-  { label: "Datasets", href: "#datasets" },
+  { label: "About", href: `${base}about.html` },
+  { label: "Research", href: `${base}#research` },
+  { label: "Datasets", href: `${base}#datasets` },
   { label: "Data Commons", href: "https://commons.heartdata.baker.edu.au", external: true },
-  { label: "Governance", href: "#governance" },
+  { label: "Governance", href: `${base}#governance` },
 ];
 
 export default function TopNav() {
@@ -16,7 +20,7 @@ export default function TopNav() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Logo */}
         <div className="flex items-center gap-8">
-          <a href="#" className="text-xl font-bold tracking-tight text-primary font-headline">
+          <a href={base} className="text-xl font-bold tracking-tight text-primary font-headline">
             ACDC
           </a>
           {/* Desktop links */}
