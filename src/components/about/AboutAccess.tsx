@@ -4,15 +4,15 @@ import MaterialIcon from "../ui/MaterialIcon";
 const steps = [
   {
     step: "1",
-    title: "Explore the data",
+    title: "Select your cohort",
     description:
-      "Sign in to the ACDC Data Commons and use the cohort explorer to browse harmonised metadata and per-cohort data dictionaries, and identify the cohorts and variables you need.",
+      "Sign in to the ACDC Data Commons and use the cohort explorer to browse harmonised metadata and per-cohort data dictionaries, then build the custom cohort of studies and variables you need.",
   },
   {
     step: "2",
-    title: "Submit a data access request",
+    title: "Apply through REMS",
     description:
-      "Lodge an application describing your research question, the datasets and variables required, and your institutional ethics approval.",
+      "Choose Apply for access to be forwarded to the Resource Entitlement Management System (REMS), the DAC's application software. There you submit your application — research question, data requested, and institutional ethics approval — and track its status and any amendments.",
   },
   {
     step: "3",
@@ -24,7 +24,7 @@ const steps = [
     step: "4",
     title: "Access and analyse",
     description:
-      "On approval, work with the approved datasets inside the secure analytical environment (Terra or Seven Bridges) and export your results for publication.",
+      "On approval, download the approved datasets or analyse them directly on the Gen3 platform, then export your results for publication.",
   },
 ];
 
