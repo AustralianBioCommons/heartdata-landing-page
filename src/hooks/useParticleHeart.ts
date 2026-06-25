@@ -2,14 +2,64 @@ import { useEffect, useRef } from "react";
 import type { RefObject } from "react";
 
 interface BloodCell {
-  mesh: import("three").Mesh;
+  x: number;
+  y: number;
+  z: number;
   vx: number;
   vy: number;
   vz: number;
+  rx: number;
+  ry: number;
+  rz: number;
   rotVx: number;
   rotVy: number;
   rotVz: number;
+  scale: number;
   radius: number;
+}
+
+// Biconcave red-blood-cell disc (dimpled centre, no hole): revolve an
+// Evans–Fung-style half-thickness profile around the Y axis.
+function createBiconcaveDiscGeometry(THREE: typeof import("three")) {
+  const R = 0.4; // outer radius (matches the previous cell footprint)
+  const A = 0.27; // thickness amplitude (centre ~0.11, rim bulge ~0.30)
+  const PROFILE_STEPS = 8; // samples along the radius (lowered for perf)
+  const LATHE_SEGMENTS = 16; // revolution segments (lowered for perf)
+
+  // h(x) = A * sqrt(1 - x^2) * (0.21 + 2.0 x^2 - 1.12 x^4), x = r/R in [0,1]
+  const halfThickness = (x: number) =>
+    A * Math.sqrt(Math.max(0, 1 - x * x)) * (0.21 + 2.0 * x * x - 1.12 * x * x * x * x);
+
+  const points: import("three").Vector2[] = [];
+  for (let i = 0; i <= PROFILE_STEPS; i++) {
+    // bottom surface: centre -> rim
+    const x = i / PROFILE_STEPS;
+    points.push(new THREE.Vector2(x * R, -halfThickness(x)));
+  }
+  for (let i = 1; i <= PROFILE_STEPS; i++) {
+    // top surface: rim -> centre (skip the duplicate rim point)
+    const x = (PROFILE_STEPS - i) / PROFILE_STEPS;
+    points.push(new THREE.Vector2(x * R, halfThickness(x)));
+  }
+
+  const geo = new THREE.LatheGeometry(points, LATHE_SEGMENTS);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+// Runtime device-quality heuristic. Static deploy -> no server-side detection,
+// so we tier in-browser. deviceMemory is Chromium-only; default high when
+// absent so Safari/Firefox aren't penalised. A coarse pointer flags
+// phones/tablets, which often report many cores but have weak GPUs.
+type QualityTier = { maxCells: number; pixelRatioCap: number; antialias: boolean };
+
+function detectQualityTier(): QualityTier {
+  const cores = navigator.hardwareConcurrency ?? 8;
+  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8;
+  const coarse = window.matchMedia("(pointer: coarse)").matches;
+  if (coarse || cores <= 4 || mem <= 4) return { maxCells: 45, pixelRatioCap: 1, antialias: false };
+  if (cores >= 8 && mem >= 8) return { maxCells: 160, pixelRatioCap: 2, antialias: true };
+  return { maxCells: 90, pixelRatioCap: 1.5, antialias: true };
 }
 
 export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>) {
@@ -29,6 +79,8 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
     import("three").then((THREE) => {
       if (disposed) return;
 
+      const tier = detectQualityTier();
+
       // --- Scene ---
       const scene = new THREE.Scene();
       scene.background = new THREE.Color("#7A1A1A");
@@ -37,8 +89,8 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
       camera.position.set(0, 0, 8);
       camera.lookAt(0, 0, 0);
 
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: tier.antialias });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, tier.pixelRatioCap));
 
       // --- Lighting ---
       const ambient = new THREE.AmbientLight("#551111", 0.8);
@@ -53,11 +105,8 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
       scene.add(fillLight);
 
       // --- Shared geometry & material ---
-      // Blood cell shape: large radius, fat tube = tiny hole, mostly disc
-      // Then squash Y to make it slightly oval (biconcave disc)
-      // 20% smaller: 0.28*0.8=0.224, 0.22*0.8=0.176
-      const torusGeo = new THREE.TorusGeometry(0.224, 0.176, 12, 24);
-      torusGeo.scale(1.0, 0.85, 1.0); // slightly oval, not perfect circle
+      // Biconcave red-blood-cell disc (dimpled centre, no through-hole).
+      const cellGeo = createBiconcaveDiscGeometry(THREE);
       const cellMat = new THREE.MeshPhongMaterial({
         color: "#c53030",
         emissive: "#3A0808",
@@ -67,38 +116,36 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
         opacity: 0.46, // 50% lighter (0.92 * 0.5)
       });
 
-      // --- Cell management ---
+      // --- Cell management: one InstancedMesh => a single draw call for all cells ---
       const cells: BloodCell[] = [];
-      const MAX_CELLS = 160; // 400% more (40 * 4)
-      const CELL_RADIUS = 0.4; // smaller collision radius to match
+      const MAX_CELLS = tier.maxCells;
+      const CELL_RADIUS = 0.4; // collision radius
+
+      const instanced = new THREE.InstancedMesh(cellGeo, cellMat, MAX_CELLS);
+      instanced.frustumCulled = false; // bounds don't track moving instances; the band fills the view
+      instanced.count = 0; // nothing drawn until cells spawn
+      scene.add(instanced);
+      const dummy = new THREE.Object3D(); // reused to compose per-instance matrices
 
       // View bounds (approximate at z=0 for camera at z=8, fov=50)
+      const REF_VIEW_W = 18; // viewW where flow runs at reference (desktop) speed -> flowScale = 1
       let viewW = 7;
       let viewH = 4;
+      let flowScale = 1; // scales flow velocity with viewport so laminar is reached at any size
       function spawnCell() {
         if (cells.length >= MAX_CELLS) return;
-
-        const mesh = new THREE.Mesh(torusGeo, cellMat);
 
         // Spawn well off-screen left so cells are never seen appearing
         const x = -(viewW / 2) - 1;
         const y = (Math.random() - 0.5) * viewH * 1.2; // full height + beyond edges
         const z = (Math.random() - 0.5) * 2;
-        mesh.position.set(x, y, z);
-
-        // Random initial rotation (natural tumble)
-        mesh.rotation.set(
-          Math.random() * Math.PI * 2,
-          Math.random() * Math.PI * 2,
-          Math.random() * Math.PI * 2
-        );
 
         // Inject with high initial velocity, will decelerate to laminar speed
         const angle = (Math.random() - 0.5) * Math.PI; // full 180 arc
-        const injectSpeed = 0.03 + Math.random() * 0.02; // 4-8x faster than cruise
+        const injectSpeed = (0.03 + Math.random() * 0.02) * flowScale; // 4-8x cruise, viewport-scaled
         const vx = Math.cos(angle) * injectSpeed;
         const vy = Math.sin(angle) * injectSpeed;
-        const vz = (Math.random() - 0.5) * 0.004;
+        const vz = (Math.random() - 0.5) * 0.004 * flowScale;
 
         // Gentle tumble
         const rotVx = (Math.random() - 0.5) * 0.008;
@@ -107,10 +154,17 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
 
         // Uniform size (tight range: 0.9 to 1.1)
         const s = 0.9 + Math.random() * 0.2;
-        mesh.scale.set(s, s, s);
 
-        scene.add(mesh);
-        cells.push({ mesh, vx, vy, vz, rotVx, rotVy, rotVz, radius: CELL_RADIUS * s });
+        cells.push({
+          x, y, z,
+          vx, vy, vz,
+          rx: Math.random() * Math.PI * 2,
+          ry: Math.random() * Math.PI * 2,
+          rz: Math.random() * Math.PI * 2,
+          rotVx, rotVy, rotVz,
+          scale: s,
+          radius: CELL_RADIUS * s,
+        });
       }
 
       // --- Collision ---
@@ -119,9 +173,9 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
           for (let j = i + 1; j < cells.length; j++) {
             const a = cells[i];
             const b = cells[j];
-            const dx = b.mesh.position.x - a.mesh.position.x;
-            const dy = b.mesh.position.y - a.mesh.position.y;
-            const dz = b.mesh.position.z - a.mesh.position.z;
+            const dx = b.x - a.x;
+            const dy = b.y - a.y;
+            const dz = b.z - a.z;
             const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
             const minDist = a.radius + b.radius;
 
@@ -132,12 +186,12 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
               const ny = dy / dist;
               const nz = dz / dist;
 
-              a.mesh.position.x -= nx * overlap * 0.5;
-              a.mesh.position.y -= ny * overlap * 0.5;
-              a.mesh.position.z -= nz * overlap * 0.5;
-              b.mesh.position.x += nx * overlap * 0.5;
-              b.mesh.position.y += ny * overlap * 0.5;
-              b.mesh.position.z += nz * overlap * 0.5;
+              a.x -= nx * overlap * 0.5;
+              a.y -= ny * overlap * 0.5;
+              a.z -= nz * overlap * 0.5;
+              b.x += nx * overlap * 0.5;
+              b.y += ny * overlap * 0.5;
+              b.z += nz * overlap * 0.5;
 
               // Soft velocity deflection (damped)
               const dvx = a.vx - b.vx;
@@ -173,6 +227,10 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
         const vFov = (camera.fov * Math.PI) / 180;
         viewH = 2 * Math.tan(vFov / 2) * camera.position.z;
         viewW = viewH * camera.aspect;
+
+        // Scale flow speed with viewport width so the inject->laminar transition
+        // always completes at the same fraction of the visible band.
+        flowScale = Math.min(Math.max(viewW / REF_VIEW_W, 0.3), 1.25);
       };
 
       const resizeObserver = new ResizeObserver(updateSize);
@@ -202,6 +260,7 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
       const animStartTime = performance.now();
       const RAMP_DURATION = 24000; // 14 seconds to reach baseline
       const FAST_MULT = 3.0; // 200% faster at start
+      let frame = 0;
 
       const animate = () => {
         animationId = requestAnimationFrame(animate);
@@ -211,7 +270,7 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
         const dt = Math.min((now - lastTime) / 1000, 0.05); // cap at 50ms
         lastTime = now;
 
-        // Linear ramp down: 3x at start → 1x over 8s
+        // Linear ramp down: 3x at start → 1x over time
         const elapsed = now - animStartTime;
         const rampT = Math.min(1, elapsed / RAMP_DURATION);
         const speedMult = FAST_MULT - (FAST_MULT - 1.5) * rampT; // baseline is 1.2x (20% faster)
@@ -229,34 +288,46 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
           const c = cells[i];
 
           // Move (scaled by ramp multiplier)
-          c.mesh.position.x += c.vx * speedMult;
-          c.mesh.position.y += c.vy * speedMult;
-          c.mesh.position.z += c.vz * speedMult;
+          c.x += c.vx * speedMult;
+          c.y += c.vy * speedMult;
+          c.z += c.vz * speedMult;
 
           // Tumble
-          c.mesh.rotation.x += c.rotVx;
-          c.mesh.rotation.y += c.rotVy;
-          c.mesh.rotation.z += c.rotVz;
+          c.rx += c.rotVx;
+          c.ry += c.rotVy;
+          c.rz += c.rotVz;
 
           // Drag: decelerate from injection speed toward cruise
           c.vx *= 0.997;
           c.vy *= 0.997;
           c.vz *= 0.995;
-          c.vz += (-c.mesh.position.z * 0.0001);
-          // Gently nudge toward cruise speed rightward
-          c.vx += (0.007 - c.vx) * 0.005;
+          c.vz += (-c.z * 0.0001);
+          // Gently nudge toward cruise speed rightward (cruise scales with viewport)
+          c.vx += (0.007 * flowScale - c.vx) * 0.005;
 
           // Despawn if out of bounds (right, top, or bottom)
           const despawnX = (viewW / 2) + 2;
           const despawnY = (viewH / 2) + 3;
-          if (c.mesh.position.x > despawnX || Math.abs(c.mesh.position.y) > despawnY) {
-            scene.remove(c.mesh);
+          if (c.x > despawnX || Math.abs(c.y) > despawnY) {
             cells.splice(i, 1);
           }
         }
 
-        // Collisions
-        resolveCollisions();
+        // Collisions (throttled to every 2nd frame; soft + decorative)
+        if (frame % 2 === 0) resolveCollisions();
+        frame++;
+
+        // Write per-instance matrices for the active cells
+        for (let i = 0; i < cells.length; i++) {
+          const c = cells[i];
+          dummy.position.set(c.x, c.y, c.z);
+          dummy.rotation.set(c.rx, c.ry, c.rz);
+          dummy.scale.setScalar(c.scale);
+          dummy.updateMatrix();
+          instanced.setMatrixAt(i, dummy.matrix);
+        }
+        instanced.count = cells.length;
+        instanced.instanceMatrix.needsUpdate = true;
 
         renderer.render(scene, camera);
       };
@@ -269,11 +340,10 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
         cancelAnimationFrame(animationId);
         resizeObserver.disconnect();
         intersectionObserver.disconnect();
-        for (const c of cells) {
-          scene.remove(c.mesh);
-        }
+        scene.remove(instanced);
+        instanced.dispose();
         cells.length = 0;
-        torusGeo.dispose();
+        cellGeo.dispose();
         cellMat.dispose();
         renderer.dispose();
       };
