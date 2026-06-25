@@ -29,12 +29,6 @@ const collection = [
     description:
       "Data is contributed under each cohort's institutional ethics approvals and participant consent, governed to protect privacy and security and to honour data sovereignty — including dedicated engagement with Aboriginal and Torres Strait Islander communities and custodians before any use of Indigenous cohort data.",
   },
-  {
-    icon: "lan",
-    title: "Built on global standards",
-    description:
-      "ACDC is built on Gen3 — the open-source technology underpinning the US NIH/NHLBI BioData Catalyst — with federated access following Global Alliance for Genomics and Health (GA4GH) standards, secure cloud analytics (Terra and Seven Bridges), and sovereign Australian infrastructure.",
-  },
 ];
 
 export default function AboutDataCollection() {
