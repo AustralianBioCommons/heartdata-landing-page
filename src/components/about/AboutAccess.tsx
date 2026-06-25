@@ -44,9 +44,10 @@ export default function AboutAccess() {
           Apply for data access
         </h2>
         <p className="text-on-surface-variant text-sm leading-relaxed">
-          External researchers can apply to access ACDC data for approved scientific purposes.
-          Access is governed by the Data Access Committee, and data ownership is always retained
-          by the contributing cohorts.
+          ACDC is built first for the academic research community, and access is also open to
+          approved industry and commercial researchers — everyone applies through the same data
+          access application and Data Access Committee (DAC) review. Data ownership is always
+          retained by the contributing cohorts.
         </p>
       </div>
 
