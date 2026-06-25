@@ -1,10 +1,12 @@
+import { CONTACT_URL } from "../../config/links";
+
 const footerLinks = [
   { label: "Data Policy", href: "/docs/ACDC_Data_Sharing_Policy.pdf" },
   { label: "Terms of Access", href: "/policies/terms-of-use.html" },
   // Base-aware so the anchor also resolves from standalone pages (e.g. about.html).
   { label: "Governance Framework", href: `${import.meta.env.BASE_URL}#governance` },
   { label: "Privacy", href: "/docs/ACDC_Privacy_Policy.pdf" },
-  { label: "Contact", href: "mailto:acdc@baker.edu.au" },
+  { label: "Contact", href: CONTACT_URL },
 ];
 
 export default function Footer() {

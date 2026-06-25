@@ -1,4 +1,5 @@
 import { cohorts } from "../../data/cohorts";
+import { DATA_COMMONS_URL, LEARN_MORE_URL } from "../../config/links";
 
 export default function HeroContent() {
   return (
@@ -19,18 +20,18 @@ export default function HeroContent() {
         </p>
         <div className="flex flex-wrap gap-4">
           <a
-            href="https://commons.heartdata.baker.edu.au"
+            href={DATA_COMMONS_URL}
             target="_blank"
             rel="noopener"
             className="px-8 py-3.5 bg-white text-[#7A1A1A] font-semibold rounded shadow-sm hover:bg-white/90 transition-colors duration-150"
           >
-            Explore Data Commons
+            Explore the Data Commons
           </a>
           <a
-            href={`${import.meta.env.BASE_URL}about.html#access`}
+            href={LEARN_MORE_URL}
             className="px-8 py-3.5 border border-white/40 text-white font-semibold rounded hover:bg-white/10 transition-colors duration-150"
           >
-            Request Access
+            Learn more
           </a>
         </div>
       </div>
