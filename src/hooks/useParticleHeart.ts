@@ -12,6 +12,35 @@ interface BloodCell {
   radius: number;
 }
 
+// Biconcave red-blood-cell disc (dimpled centre, no hole): revolve an
+// Evans–Fung-style half-thickness profile around the Y axis.
+function createBiconcaveDiscGeometry(THREE: typeof import("three")) {
+  const R = 0.4; // outer radius (matches the previous cell footprint)
+  const A = 0.27; // thickness amplitude (centre ~0.11, rim bulge ~0.30)
+  const PROFILE_STEPS = 14; // samples along the radius
+  const LATHE_SEGMENTS = 24; // revolution segments (matches the old torus)
+
+  // h(x) = A * sqrt(1 - x^2) * (0.21 + 2.0 x^2 - 1.12 x^4), x = r/R in [0,1]
+  const halfThickness = (x: number) =>
+    A * Math.sqrt(Math.max(0, 1 - x * x)) * (0.21 + 2.0 * x * x - 1.12 * x * x * x * x);
+
+  const points: import("three").Vector2[] = [];
+  for (let i = 0; i <= PROFILE_STEPS; i++) {
+    // bottom surface: centre -> rim
+    const x = i / PROFILE_STEPS;
+    points.push(new THREE.Vector2(x * R, -halfThickness(x)));
+  }
+  for (let i = 1; i <= PROFILE_STEPS; i++) {
+    // top surface: rim -> centre (skip the duplicate rim point)
+    const x = (PROFILE_STEPS - i) / PROFILE_STEPS;
+    points.push(new THREE.Vector2(x * R, halfThickness(x)));
+  }
+
+  const geo = new THREE.LatheGeometry(points, LATHE_SEGMENTS);
+  geo.computeVertexNormals();
+  return geo;
+}
+
 export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>) {
   const isVisibleRef = useRef(true);
 
@@ -53,11 +82,8 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
       scene.add(fillLight);
 
       // --- Shared geometry & material ---
-      // Blood cell shape: large radius, fat tube = tiny hole, mostly disc
-      // Then squash Y to make it slightly oval (biconcave disc)
-      // 20% smaller: 0.28*0.8=0.224, 0.22*0.8=0.176
-      const torusGeo = new THREE.TorusGeometry(0.224, 0.176, 12, 24);
-      torusGeo.scale(1.0, 0.85, 1.0); // slightly oval, not perfect circle
+      // Biconcave red-blood-cell disc (dimpled centre, no through-hole).
+      const cellGeo = createBiconcaveDiscGeometry(THREE);
       const cellMat = new THREE.MeshPhongMaterial({
         color: "#c53030",
         emissive: "#3A0808",
@@ -78,7 +104,7 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
       function spawnCell() {
         if (cells.length >= MAX_CELLS) return;
 
-        const mesh = new THREE.Mesh(torusGeo, cellMat);
+        const mesh = new THREE.Mesh(cellGeo, cellMat);
 
         // Spawn well off-screen left so cells are never seen appearing
         const x = -(viewW / 2) - 1;
@@ -273,7 +299,7 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
           scene.remove(c.mesh);
         }
         cells.length = 0;
-        torusGeo.dispose();
+        cellGeo.dispose();
         cellMat.dispose();
         renderer.dispose();
       };
