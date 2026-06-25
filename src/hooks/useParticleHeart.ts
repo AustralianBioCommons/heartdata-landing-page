@@ -128,8 +128,10 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
       const dummy = new THREE.Object3D(); // reused to compose per-instance matrices
 
       // View bounds (approximate at z=0 for camera at z=8, fov=50)
+      const REF_VIEW_W = 18; // viewW where flow runs at reference (desktop) speed -> flowScale = 1
       let viewW = 7;
       let viewH = 4;
+      let flowScale = 1; // scales flow velocity with viewport so laminar is reached at any size
       function spawnCell() {
         if (cells.length >= MAX_CELLS) return;
 
@@ -140,10 +142,10 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
 
         // Inject with high initial velocity, will decelerate to laminar speed
         const angle = (Math.random() - 0.5) * Math.PI; // full 180 arc
-        const injectSpeed = 0.03 + Math.random() * 0.02; // 4-8x faster than cruise
+        const injectSpeed = (0.03 + Math.random() * 0.02) * flowScale; // 4-8x cruise, viewport-scaled
         const vx = Math.cos(angle) * injectSpeed;
         const vy = Math.sin(angle) * injectSpeed;
-        const vz = (Math.random() - 0.5) * 0.004;
+        const vz = (Math.random() - 0.5) * 0.004 * flowScale;
 
         // Gentle tumble
         const rotVx = (Math.random() - 0.5) * 0.008;
@@ -225,6 +227,10 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
         const vFov = (camera.fov * Math.PI) / 180;
         viewH = 2 * Math.tan(vFov / 2) * camera.position.z;
         viewW = viewH * camera.aspect;
+
+        // Scale flow speed with viewport width so the inject->laminar transition
+        // always completes at the same fraction of the visible band.
+        flowScale = Math.min(Math.max(viewW / REF_VIEW_W, 0.3), 1.25);
       };
 
       const resizeObserver = new ResizeObserver(updateSize);
@@ -296,8 +302,8 @@ export function useParticleHeart(canvasRef: RefObject<HTMLCanvasElement | null>)
           c.vy *= 0.997;
           c.vz *= 0.995;
           c.vz += (-c.z * 0.0001);
-          // Gently nudge toward cruise speed rightward
-          c.vx += (0.007 - c.vx) * 0.005;
+          // Gently nudge toward cruise speed rightward (cruise scales with viewport)
+          c.vx += (0.007 * flowScale - c.vx) * 0.005;
 
           // Despawn if out of bounds (right, top, or bottom)
           const despawnX = (viewW / 2) + 2;
