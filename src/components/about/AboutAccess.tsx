@@ -1,5 +1,6 @@
 import SectionWrapper from "../ui/SectionWrapper";
 import MaterialIcon from "../ui/MaterialIcon";
+import { DATA_COMMONS_URL, CONTACT_URL } from "../../config/links";
 
 const steps = [
   {
@@ -80,7 +81,7 @@ export default function AboutAccess() {
         </div>
         <div className="flex flex-wrap gap-3 shrink-0">
           <a
-            href="https://commons.heartdata.baker.edu.au"
+            href={DATA_COMMONS_URL}
             target="_blank"
             rel="noopener"
             className="px-6 py-3 bg-white text-primary font-semibold rounded shadow-sm hover:bg-white/90 transition-colors duration-150"
@@ -88,7 +89,7 @@ export default function AboutAccess() {
             Start your application
           </a>
           <a
-            href="mailto:acdc@baker.edu.au"
+            href={CONTACT_URL}
             className="px-6 py-3 border border-white/40 text-white font-semibold rounded hover:bg-white/10 transition-colors duration-150"
           >
             Contact the team
