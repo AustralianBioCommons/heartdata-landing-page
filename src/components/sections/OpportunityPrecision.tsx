@@ -1,6 +1,6 @@
 import SectionWrapper from "../ui/SectionWrapper";
 import MaterialIcon from "../ui/MaterialIcon";
-import { DATA_DICTIONARY_URL } from "../../config/links";
+import { DATA_DICTIONARY_URL, USER_GUIDE_URL } from "../../config/links";
 
 const dataTypes = [
   { icon: "genetics", label: "Genomic", subtitle: "54,583 profiles" },
@@ -146,6 +146,18 @@ export default function OpportunityPrecision() {
           </p>
         </div>
       </div>
+
+      {/* User Guide entry point */}
+      <p className="text-sm text-on-surface-variant mt-4">
+        New to the platform?{" "}
+        <a
+          href={USER_GUIDE_URL}
+          className="font-medium text-primary hover:text-primary-dark inline-flex items-center gap-1"
+        >
+          Read the User Guide
+          <MaterialIcon icon="arrow_forward" className="text-base" />
+        </a>
+      </p>
 
       {/* Research Objectives */}
       <div className="mt-10 pt-8 border-t border-outline-light">
