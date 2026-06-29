@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MaterialIcon from "../ui/MaterialIcon";
-import { DATA_COMMONS_URL, DATA_COMMONS_LOGIN_URL } from "../../config/links";
+import { DATA_COMMONS_URL, DATA_COMMONS_LOGIN_URL, USER_GUIDE_URL } from "../../config/links";
 
 // Base-aware so in-page anchors also work from standalone pages (e.g. about.html).
 const base = import.meta.env.BASE_URL;
@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Datasets", href: `${base}#datasets` },
   { label: "Data Commons", href: DATA_COMMONS_URL, external: true },
   { label: "Governance", href: `${base}#governance` },
+  { label: "User Guide", href: USER_GUIDE_URL },
 ];
 
 export default function TopNav() {

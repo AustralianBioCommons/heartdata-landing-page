@@ -9,6 +9,7 @@
 //   Start your application (About page)       -> DATA_COMMONS_URL        apply via REMS
 //   Contact (About page + footer)             -> CONTACT_URL             email the team
 //   Data Harmonisation bar (platform)         -> DATA_DICTIONARY_URL     live data dictionary
+//   User Guide (platform link + footer)       -> USER_GUIDE_URL          in-app guide.html stub
 //
 // Distinct truthful destinations: portal root (explore), /login (sign in), about.html (learn).
 
@@ -28,3 +29,6 @@ export const CONTACT_URL = "mailto:acdc@baker.edu.au";
 
 /** Live harmonised data dictionary on the portal. */
 export const DATA_DICTIONARY_URL = "https://commons.heartdata.baker.edu.au/DD";
+
+/** In-app User Guide stub (platform-flow link + footer). */
+export const USER_GUIDE_URL = `${base}guide.html`;

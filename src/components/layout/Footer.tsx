@@ -1,6 +1,7 @@
-import { CONTACT_URL } from "../../config/links";
+import { CONTACT_URL, USER_GUIDE_URL } from "../../config/links";
 
 const footerLinks = [
+  { label: "User Guide", href: USER_GUIDE_URL },
   { label: "Data Policy", href: "/docs/ACDC_Data_Sharing_Policy.pdf" },
   { label: "Terms of Access", href: "/policies/terms-of-use.html" },
   // Base-aware so the anchor also resolves from standalone pages (e.g. about.html).
