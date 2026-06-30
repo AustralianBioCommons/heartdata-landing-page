@@ -37,7 +37,7 @@ export default function Partners() {
     <SectionWrapper bg="bg-white" labelledBy="partners-heading" className="!py-8 lg:!py-12">
       <h2
         id="partners-heading"
-        className="font-headline text-xl sm:text-2xl font-semibold text-on-surface-variant text-center mb-8"
+        className="font-headline text-2xl sm:text-3xl font-bold text-primary text-center mb-6"
       >
         Strategic Leadership &amp; Partners
       </h2>
