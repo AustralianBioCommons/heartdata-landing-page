@@ -18,6 +18,12 @@ const challenges = [
   },
 ];
 
+const objectives = [
+  { label: "Polygenic Risk Scores", description: "Assessing PRS performance in the Australian population" },
+  { label: "Metabolic Risk Scores", description: "Developing a combined PRS/MRS biosignature for CAD" },
+  { label: "International Integration", description: "Federated analysis with NHLBI BioData Catalyst cohorts" },
+];
+
 export default function CriticalChallenge() {
   return (
     <SectionWrapper id="research" bg="bg-surface-alt" labelledBy="challenge-heading" className="!pt-8 lg:!pt-12">
@@ -42,6 +48,24 @@ export default function CriticalChallenge() {
             </p>
           </div>
         ))}
+      </div>
+
+      {/* Research Objectives */}
+      <div className="mt-10 pt-8 border-t border-outline-light">
+        <h3 className="text-xs uppercase tracking-wider font-medium text-on-surface-variant mb-4">
+          Research Objectives
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {objectives.map((obj) => (
+            <div key={obj.label} className="flex items-start gap-3">
+              <span className="inline-block w-2 h-2 rounded-full bg-secondary mt-1.5 shrink-0" />
+              <div>
+                <span className="font-semibold text-on-surface text-sm">{obj.label}</span>
+                <p className="text-xs text-on-surface-variant mt-0.5">{obj.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </SectionWrapper>
   );
