@@ -63,7 +63,7 @@ export default function StrategicSignificance() {
       </div>
 
       {/* Security & Compliance */}
-      <div className="flex gap-4 p-5 bg-surface-alt border border-outline-light rounded-sm mb-8">
+      <div className="flex gap-4 p-5 bg-surface-alt border border-outline-light rounded-sm">
         <MaterialIcon icon="shield" className="text-tertiary text-xl shrink-0 mt-0.5" />
         <div>
           <h4 className="font-semibold text-on-surface text-sm">Security &amp; Compliance</h4>
@@ -73,28 +73,6 @@ export default function StrategicSignificance() {
             Compliant with all relevant laws and regulations.
           </p>
         </div>
-      </div>
-
-      {/* Publication Callout */}
-      <div className="bg-secondary/5 border border-secondary/20 rounded-sm p-6 flex items-center gap-4">
-        <MaterialIcon icon="menu_book" className="text-secondary text-2xl shrink-0" />
-        <div className="flex-1">
-          <h4 className="font-semibold text-on-surface text-sm">
-            Published in Nature Reviews Cardiology
-          </h4>
-          <p className="text-xs text-on-surface-variant mt-1">
-            Building the Australian Cardiovascular disease Data Commons
-            &mdash; September 2025
-          </p>
-        </div>
-        <a
-          href="https://www.nature.com/articles/s41569-025-01208-0"
-          target="_blank"
-          rel="noopener"
-          className="text-secondary text-sm font-semibold hover:underline shrink-0"
-        >
-          Read paper &rarr;
-        </a>
       </div>
     </SectionWrapper>
   );

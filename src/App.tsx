@@ -5,6 +5,7 @@ import CriticalChallenge from "./components/sections/CriticalChallenge";
 import FederatedCohorts from "./components/sections/FederatedCohorts";
 import OpportunityPrecision from "./components/sections/OpportunityPrecision";
 import StrategicSignificance from "./components/sections/StrategicSignificance";
+import Publications from "./components/sections/Publications";
 import Partners from "./components/sections/Partners";
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <FederatedCohorts />
         <OpportunityPrecision />
         <StrategicSignificance />
+        <Publications />
         <Partners />
       </main>
       <Footer />
