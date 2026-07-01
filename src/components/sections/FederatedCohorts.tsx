@@ -16,13 +16,13 @@ function formatNumber(n: number): string {
 
 const summaryStats = [
   { value: formatNumber(onboardedClinical), label: "Clinical Records" },
-  { value: formatNumber(onboardedGenomic), label: "Genomic Profiles" },
+  { value: onboardedGenomic > 0 ? formatNumber(onboardedGenomic) : "Coming soon", label: "Genomic Profiles" },
   { value: formatNumber(onboardedLipidomic), label: "Lipidomic Profiles" },
   { value: String(onboardedCohorts.length), label: "Datasets" },
 ];
 
-// Cohort-level "coming" status pill — deliberately a labelled pill (not the bare
-// per-data-type "Not yet available" dot) so the two indicators read as distinct.
+// "Coming" pill (clock + label) — marks to-be-onboarded cohorts and data types
+// that are coming soon (e.g. genomic). The bare dot marks data not yet available.
 function ComingPill() {
   return (
     <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-surface-alt border border-outline-light px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-on-surface-variant">
@@ -32,10 +32,14 @@ function ComingPill() {
   );
 }
 
-// Per-data-type availability: a number, or the "Not yet available" dot when null.
-function DataCell({ value }: { value: number | null }) {
-  return value !== null ? (
-    <span className="text-on-surface">{formatNumber(value)}</span>
+// Per-data-type availability: a number; a "Coming" pill when the data is coming
+// soon (coming=true, e.g. genomic); otherwise the bare "Not yet available" dot.
+function DataCell({ value, coming = false }: { value: number | null; coming?: boolean }) {
+  if (value !== null) {
+    return <span className="text-on-surface">{formatNumber(value)}</span>;
+  }
+  return coming ? (
+    <ComingPill />
   ) : (
     <span
       className="inline-block w-2.5 h-2.5 rounded-full border-[1.5px] border-outline"
@@ -62,7 +66,7 @@ function CohortRow({ cohort, coming = false }: { cohort: Cohort; coming?: boolea
         {formatNumber(cohort.clinical)}
       </td>
       <td className="p-4 text-right font-mono tabular-nums text-sm">
-        <DataCell value={cohort.genomic} />
+        <DataCell value={cohort.genomic} coming={cohort.genomicComing} />
       </td>
       <td className="p-4 text-right font-mono tabular-nums text-sm">
         <DataCell value={cohort.lipidomic} />
@@ -151,7 +155,14 @@ export default function FederatedCohorts() {
                 {formatNumber(onboardedClinical)}
               </td>
               <td className="p-4 text-right font-mono tabular-nums font-semibold text-primary text-sm">
-                {formatNumber(onboardedGenomic)}
+                {onboardedGenomic > 0 ? (
+                  formatNumber(onboardedGenomic)
+                ) : (
+                  <span
+                    className="inline-block w-2.5 h-2.5 rounded-full border-[1.5px] border-outline"
+                    aria-label="Not yet available"
+                  />
+                )}
               </td>
               <td className="p-4 text-right font-mono tabular-nums font-semibold text-primary text-sm">
                 {formatNumber(onboardedLipidomic)}
@@ -183,7 +194,7 @@ export default function FederatedCohorts() {
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-on-surface-variant">
           <span className="flex items-center gap-2">
             <ComingPill />
-            Cohort scheduled for onboarding
+            Coming soon
           </span>
           <span className="flex items-center gap-2">
             <span className="inline-block w-2.5 h-2.5 rounded-full border-[1.5px] border-outline" />
