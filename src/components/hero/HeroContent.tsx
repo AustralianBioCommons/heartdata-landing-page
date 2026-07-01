@@ -3,7 +3,7 @@ import { DATA_COMMONS_URL, LEARN_MORE_URL } from "../../config/links";
 
 export default function HeroContent() {
   return (
-    <div className="relative z-20 mx-auto max-w-6xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center h-full">
+    <div className="relative z-20 mx-auto max-w-6xl px-6 lg:px-8 py-16 lg:py-0 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       <div className="lg:col-span-8 flex flex-col justify-center">
         <h1 className="font-headline text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-6">
           Australian Cardiovascular disease Data Commons
