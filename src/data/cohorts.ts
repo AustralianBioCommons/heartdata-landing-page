@@ -6,15 +6,16 @@ export interface Cohort {
   genomic: number | null;
   lipidomic: number | null;
   status: "onboarded" | "coming";
+  genomicComing?: boolean; // genomic flagged "coming soon" (vs simply not available)
 }
 
 export const cohorts: Cohort[] = [
   // Onboarded cohorts (live on the platform; shown by default)
-  { name: "AusDiab", outcomes: "CVD (>15 yr)", subjects: 11000, clinical: 11000, genomic: null, lipidomic: 10000, status: "onboarded" },
-  { name: "Caught-CAD", outcomes: "CTCA/CVD (<3 yr)", subjects: 1000, clinical: 1000, genomic: 1000, lipidomic: 1000, status: "onboarded" },
-  { name: "EDCAD-PMS", outcomes: "CTCA/CVD (<3 yr)", subjects: 1000, clinical: 1000, genomic: 1000, lipidomic: 1000, status: "onboarded" },
-  { name: "Baker Biobank", outcomes: "CVD (>15 yr)", subjects: 6000, clinical: 6000, genomic: 6000, lipidomic: null, status: "onboarded" },
-  { name: "CDAH", outcomes: "CVD (>20 yr)", subjects: 4947, clinical: 4947, genomic: null, lipidomic: null, status: "onboarded" },
+  { name: "AusDiab", outcomes: "CVD (>15 yr)", subjects: 11247, clinical: 11247, genomic: null, lipidomic: 20678, status: "onboarded" },
+  { name: "Caught-CAD", outcomes: "CTCA/CVD (<3 yr)", subjects: 1092, clinical: 1092, genomic: null, lipidomic: 1052, status: "onboarded", genomicComing: true },
+  { name: "EDCAD-PMS", outcomes: "CTCA/CVD (<3 yr)", subjects: 2251, clinical: 2251, genomic: null, lipidomic: 1556, status: "onboarded", genomicComing: true },
+  { name: "Baker Biobank", outcomes: "CVD (>15 yr)", subjects: 5311, clinical: 5311, genomic: null, lipidomic: null, status: "onboarded", genomicComing: true },
+  { name: "CDAH", outcomes: "CVD (>20 yr)", subjects: 3965, clinical: 3965, genomic: null, lipidomic: null, status: "onboarded" },
   // To-be-onboarded cohorts (scheduled; revealed on expand)
   { name: "FIELD", outcomes: "CVD (>10 yr)", subjects: 10000, clinical: 10000, genomic: 5000, lipidomic: 5000, status: "coming" },
   { name: "BioHEART-CT", outcomes: "CTCA/CVD (<3 yr)", subjects: 5000, clinical: 5000, genomic: 2000, lipidomic: 2000, status: "coming" },
