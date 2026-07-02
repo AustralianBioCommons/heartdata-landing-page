@@ -18,6 +18,8 @@ export default defineConfig({
         about: resolve(root, "about.html"),
         guide: resolve(root, "guide.html"),
         download: resolve(root, "download.html"),
+        account: resolve(root, "account.html"),
+        cohorts: resolve(root, "cohorts.html"),
       },
     },
   },
