@@ -20,6 +20,7 @@ const topics: GuideTopic[] = [
     icon: "person_add",
     title: "Set up an account",
     description: "Create your ACDC Data Commons account and sign in.",
+    href: `${base}account.html`,
   },
   {
     id: "build-cohorts",
@@ -27,12 +28,7 @@ const topics: GuideTopic[] = [
     title: "Build cohorts with filters",
     description:
       "Use the cohort explorer to filter the harmonised data and assemble your study set.",
-  },
-  {
-    id: "analysis-approach",
-    icon: "analytics",
-    title: "Choose an analysis approach",
-    description: "Decide between a managed analysis workspace and your own environment.",
+    href: `${base}cohorts.html`,
   },
   {
     id: "api-key",
@@ -104,12 +100,10 @@ export default function GuidePage() {
                   {t.href ? (
                     <a
                       href={t.href}
-                      target="_blank"
-                      rel="noopener"
                       className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark mt-2"
                     >
                       Read guide
-                      <MaterialIcon icon="open_in_new" className="text-xs" />
+                      <MaterialIcon icon="arrow_forward" className="text-xs" />
                     </a>
                   ) : (
                     <span className="inline-flex items-center gap-1 rounded-full bg-white border border-outline-light px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-on-surface-variant mt-2">
