@@ -1,0 +1,10 @@
+# Supply-chain hardening: never install a package version until it is at least
+# 14 days old (20160 minutes), giving the community time to detect and yank
+# malicious releases before they reach our builds. Units are minutes.
+minimumReleaseAge: 20160
+
+# Dependencies allowed to run install/build scripts (pnpm blocks all by
+# default since v10). These compile the native binaries Vite needs.
+onlyBuiltDependencies:
+  - "@tailwindcss/oxide"
+  - esbuild

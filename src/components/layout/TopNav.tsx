@@ -1,11 +1,16 @@
 import { useState } from "react";
 import MaterialIcon from "../ui/MaterialIcon";
+import { DATA_COMMONS_URL, DATA_COMMONS_LOGIN_URL, USER_GUIDE_URL } from "../../config/links";
+
+// Base-aware so in-page anchors also work from standalone pages (e.g. about.html).
+const base = import.meta.env.BASE_URL;
 
 const navLinks = [
-  { label: "Research", href: "#research" },
-  { label: "Datasets", href: "#datasets" },
-  { label: "Data Commons", href: "https://commons.heartdata.baker.edu.au", external: true },
-  { label: "Governance", href: "#governance" },
+  { label: "Research", href: `${base}#research` },
+  { label: "Datasets", href: `${base}#datasets` },
+  { label: "Data Commons", href: DATA_COMMONS_URL, external: true },
+  { label: "Governance", href: `${base}#governance` },
+  { label: "User Guide", href: USER_GUIDE_URL },
 ];
 
 export default function TopNav() {
@@ -16,7 +21,7 @@ export default function TopNav() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Logo */}
         <div className="flex items-center gap-8">
-          <a href="#" className="text-xl font-bold tracking-tight text-primary font-headline">
+          <a href={base} className="text-xl font-bold tracking-tight text-primary font-headline">
             ACDC
           </a>
           {/* Desktop links */}
@@ -38,20 +43,12 @@ export default function TopNav() {
         {/* Actions */}
         <div className="flex items-center gap-3">
           <a
-            href="https://commons.heartdata.baker.edu.au"
-            target="_blank"
-            rel="noopener"
-            className="hidden sm:inline-block px-4 py-1.5 text-sm font-semibold text-primary hover:bg-surface-alt rounded transition-colors duration-150"
-          >
-            Login
-          </a>
-          <a
-            href="https://commons.heartdata.baker.edu.au"
+            href={DATA_COMMONS_LOGIN_URL}
             target="_blank"
             rel="noopener"
             className="hidden sm:inline-block px-5 py-1.5 bg-primary text-on-primary text-sm font-semibold rounded shadow-sm hover:bg-primary-dark transition-colors duration-150"
           >
-            Apply
+            Login
           </a>
           {/* Mobile menu button */}
           <button
@@ -81,20 +78,12 @@ export default function TopNav() {
           ))}
           <div className="flex gap-3 pt-2">
             <a
-              href="https://commons.heartdata.baker.edu.au"
-              target="_blank"
-              rel="noopener"
-              className="px-4 py-2 text-sm font-semibold text-primary border border-outline rounded"
-            >
-              Login
-            </a>
-            <a
-              href="https://commons.heartdata.baker.edu.au"
+              href={DATA_COMMONS_LOGIN_URL}
               target="_blank"
               rel="noopener"
               className="px-4 py-2 bg-primary text-on-primary text-sm font-semibold rounded"
             >
-              Apply
+              Login
             </a>
           </div>
         </div>
