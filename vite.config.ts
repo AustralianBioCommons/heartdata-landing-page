@@ -17,6 +17,7 @@ export default defineConfig({
         main: resolve(root, "index.html"),
         about: resolve(root, "about.html"),
         guide: resolve(root, "guide.html"),
+        download: resolve(root, "download.html"),
       },
     },
   },

@@ -39,19 +39,21 @@ const topics: GuideTopic[] = [
     icon: "key",
     title: "Create an API key",
     description: "Generate an API key to pull approved data into your own environment.",
+    href: `${base}download.html#api-key`,
   },
   {
     id: "download-data",
     icon: "download",
     title: "Download data",
-    description: "Download selected files securely with the Gen3 client and a manifest file.",
-    href: `${base}docs/manifest-guide.html`,
+    description: "Pull clinical & metadata as tables, or omics files with the Gen3 client and a manifest.",
+    href: `${base}download.html`,
   },
   {
     id: "workspaces",
     icon: "terminal",
     title: "Use workspaces",
     description: "Run analyses in a managed, secure analytical workspace.",
+    href: `${base}download.html#workspaces`,
   },
 ];
 
