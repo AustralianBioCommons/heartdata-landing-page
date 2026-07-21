@@ -3,31 +3,33 @@ import SectionWrapper from "../ui/SectionWrapper";
 interface Logo {
   src: string;
   alt: string;
+  /** Tailwind height class override for visual balance (defaults to h-9) */
+  heightClass?: string;
 }
 
 const groups: { label: string; logos: Logo[] }[] = [
   {
     label: "Leadership",
     logos: [
-      { src: "images/logos/australian-cardiovascular-alliance.svg", alt: "Australian Cardiovascular Alliance (ACvA)" },
-      { src: "images/logos/australian-biocommons.svg", alt: "Australian BioCommons" },
-      { src: "images/logos/baker-heart-and-diabetes-institute.svg", alt: "Baker Heart and Diabetes Institute" },
-      { src: "images/logos/bioplatforms-australia.svg", alt: "Bioplatforms Australia" },
-      { src: "images/logos/cad-frontiers.svg", alt: "CAD Frontiers" },
+      { src: "images/logos/png/australian-cardiovascular-alliance.png", alt: "Australian Cardiovascular Alliance (ACvA)" },
+      { src: "images/logos/png/australian-biocommons.png", alt: "Australian BioCommons" },
+      { src: "images/logos/png/baker-horizontal.png", alt: "Baker Heart and Diabetes Institute", heightClass: "h-8" },
+      { src: "images/logos/png/bioplatforms-australia.png", alt: "Bioplatforms Australia" },
+      { src: "images/logos/png/cad-frontiers.png", alt: "CAD Frontiers" },
     ],
   },
   {
     label: "Funding",
     logos: [
-      { src: "images/logos/national-research-infrastructure-for-australia-ncris.svg", alt: "National Research Infrastructure for Australia (NCRIS)" },
-      { src: "images/logos/medical-research-future-fund-mrff.svg", alt: "Medical Research Future Fund (MRFF)" },
+      { src: "images/logos/png/national-research-infrastructure-for-australia-ncris.png", alt: "National Research Infrastructure for Australia (NCRIS)" },
+      { src: "images/logos/png/medical-research-future-fund-mrff.png", alt: "Medical Research Future Fund (MRFF)" },
     ],
   },
   {
     label: "Affiliated",
     logos: [
-      { src: "images/logos/university-of-melbourne.svg", alt: "University of Melbourne" },
-      { src: "images/logos/university-of-sydney.svg", alt: "University of Sydney" },
+      { src: "images/logos/png/university-of-melbourne.png", alt: "University of Melbourne" },
+      { src: "images/logos/png/university-of-sydney.png", alt: "University of Sydney" },
     ],
   },
 ];
@@ -54,7 +56,7 @@ export default function Partners() {
                   key={logo.alt}
                   src={`${import.meta.env.BASE_URL}${logo.src}`}
                   alt={logo.alt}
-                  className="h-12 w-auto max-w-[150px] object-contain mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity duration-200"
+                  className={`${logo.heightClass ?? "h-9"} w-auto object-contain mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity duration-200`}
                 />
               ))}
             </div>
