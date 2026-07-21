@@ -11,7 +11,7 @@ export interface Cohort {
 
 export const cohorts: Cohort[] = [
   // Onboarded cohorts (live on the platform; shown by default)
-  { name: "AusDiab", outcomes: "CVD (>15 yr)", subjects: 11247, clinical: 11247, genomic: null, lipidomic: 20678, status: "onboarded" },
+  { name: "AusDiab", outcomes: "CVD (>15 yr)", subjects: 11247, clinical: 11247, genomic: null, lipidomic: 10339, status: "onboarded" },
   { name: "Caught-CAD", outcomes: "CTCA/CVD (<3 yr)", subjects: 1092, clinical: 1092, genomic: null, lipidomic: 1052, status: "onboarded", genomicComing: true },
   { name: "EDCAD-PMS", outcomes: "CTCA/CVD (<3 yr)", subjects: 2251, clinical: 2251, genomic: null, lipidomic: 1556, status: "onboarded", genomicComing: true },
   { name: "Baker Biobank", outcomes: "CVD (>15 yr)", subjects: 5311, clinical: 5311, genomic: null, lipidomic: null, status: "onboarded", genomicComing: true },
