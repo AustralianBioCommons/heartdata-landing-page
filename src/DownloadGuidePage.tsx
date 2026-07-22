@@ -143,8 +143,7 @@ export default function DownloadGuidePage() {
 
           <h3 className="text-sm font-semibold text-on-surface mb-1">Python</h3>
           <CodeBlock>{`# install
-git clone https://github.com/AustralianBioCommons/gen3-metadata.git
-bash build.sh`}</CodeBlock>
+pip install gen3-metadata`}</CodeBlock>
           <CodeBlock>{`from gen3_metadata.gen3_metadata_parser import fetch_all_metadata
 
 result = fetch_all_metadata("credentials.json", "program1", "AusDiab")
