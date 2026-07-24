@@ -3,7 +3,7 @@ import SectionWrapper from "../ui/SectionWrapper";
 interface Logo {
   src: string;
   alt: string;
-  /** Tailwind height class override for visual balance (defaults to h-9) */
+  /** Tailwind height class override for visual balance (defaults to h-[3.15rem]) */
   heightClass?: string;
 }
 
@@ -13,7 +13,7 @@ const groups: { label: string; logos: Logo[] }[] = [
     logos: [
       { src: "images/logos/png/australian-cardiovascular-alliance.png", alt: "Australian Cardiovascular Alliance (ACvA)" },
       { src: "images/logos/png/australian-biocommons.png", alt: "Australian BioCommons" },
-      { src: "images/logos/png/baker-horizontal.png", alt: "Baker Heart and Diabetes Institute", heightClass: "h-8" },
+      { src: "images/logos/png/baker-horizontal.png", alt: "Baker Heart and Diabetes Institute", heightClass: "h-[2.8rem]"},
       { src: "images/logos/png/bioplatforms-australia.png", alt: "Bioplatforms Australia" },
       { src: "images/logos/png/cad-frontiers.png", alt: "CAD Frontiers" },
     ],
@@ -47,7 +47,7 @@ export default function Partners() {
       <div className="divide-y divide-outline-light">
         {groups.map((group) => (
           <div key={group.label} className="py-6 text-center">
-            <span className="block text-xs uppercase tracking-widest font-semibold text-on-surface-variant mb-4">
+            <span className="block text-[1.05rem] uppercase tracking-widest font-semibold text-on-surface-variant mb-4">
               {group.label}
             </span>
             <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
@@ -56,7 +56,7 @@ export default function Partners() {
                   key={logo.alt}
                   src={`${import.meta.env.BASE_URL}${logo.src}`}
                   alt={logo.alt}
-                  className={`${logo.heightClass ?? "h-9"} w-auto object-contain mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity duration-200`}
+                  className={`${logo.heightClass ?? "h-[3.15rem]"} w-auto object-contain mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity duration-200`}
                 />
               ))}
             </div>
