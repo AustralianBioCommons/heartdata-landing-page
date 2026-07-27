@@ -56,8 +56,10 @@ const workspaceCards = [
       <>
         Easiest: on the Exploration page, select your cohort and click{" "}
         <strong>Export to Workspace</strong> &mdash; files appear under <Code>/pd/data</Code> (allow
-        ~5&nbsp;min). Or upload your <Code>credentials.json</Code> and <Code>manifest.json</Code> and
-        run the Gen3 client (section&nbsp;2) inside the workspace.
+        ~5&nbsp;min). For clinical &amp; metadata, paste your API key into a notebook and use{" "}
+        <Code>gen3-metadata</Code> (section&nbsp;1) &mdash; no file upload needed. For omics files,
+        upload <Code>credentials.json</Code> and <Code>manifest.json</Code> and run the Gen3 client
+        (section&nbsp;2) inside the workspace.
       </>
     ),
   },
@@ -119,10 +121,13 @@ export default function DownloadGuidePage() {
           </h2>
           <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl">
             Every tool below authenticates with an API key. Sign in to the{" "}
-            <ExtLink href={DATA_COMMONS_URL}>Data Commons</ExtLink>, open your profile, create an API
-            key, and download it as <Code>credentials.json</Code>. You&rsquo;ll point each tool at this
-            file. The <ExtLink href={GEN3_API_KEY_DOCS_URL}>Gen3 credentials guide</ExtLink> has the
-            full walkthrough.
+            <ExtLink href={DATA_COMMONS_URL}>Data Commons</ExtLink>, open your profile and create an
+            API key. You can then use it two ways: <strong>copy the JSON</strong> and paste it straight
+            into your Python or R code (section&nbsp;1) &mdash; the quickest route in a workspace
+            &mdash; or <strong>download it as <Code>credentials.json</Code></strong>, which the Gen3
+            client (section&nbsp;2) needs and which is the better option if your code is shared. The{" "}
+            <ExtLink href={GEN3_API_KEY_DOCS_URL}>Gen3 credentials guide</ExtLink> has the full
+            walkthrough.
           </p>
         </SectionWrapper>
 
@@ -146,7 +151,10 @@ export default function DownloadGuidePage() {
 pip install gen3-metadata`}</CodeBlock>
           <CodeBlock>{`from gen3_metadata.gen3_metadata_parser import fetch_all_metadata
 
-result = fetch_all_metadata("credentials.json", "program1", "AusDiab")
+# paste the API key JSON from your portal profile (single quotes)
+api_key = '{"api_key": "eyJhbGciOi...", "key_id": "1f84b84c-..."}'
+
+result = fetch_all_metadata(api_key, "program1", "AusDiab")
 
 result.subject          # one node, as raw JSON
 dfs = result.to_df()    # all nodes, as pandas DataFrames
@@ -154,14 +162,31 @@ dfs.subject             # -> DataFrame`}</CodeBlock>
 
           <h3 className="text-sm font-semibold text-on-surface mb-1 mt-6">R</h3>
           <CodeBlock>{`# install
+if (!require("remotes")) install.packages("remotes")
 remotes::install_github("AustralianBioCommons/gen3-metadata", subdir = "gen3metadata-R")`}</CodeBlock>
           <CodeBlock>{`library(gen3metadata)
 
-result <- fetch_all_metadata("credentials.json", "program1", "AusDiab")
+# paste the API key JSON from your portal profile (single quotes)
+api_key <- '{"api_key": "eyJhbGciOi...", "key_id": "1f84b84c-..."}'
+
+result <- fetch_all_metadata(api_key, "program1", "AusDiab")
 
 result$subject          # one node, as a nested list
 dfs <- to_df(result)    # all nodes, as data.frames
 dfs$subject             # -> data.frame`}</CodeBlock>
+
+          <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mt-4">
+            Wrap the pasted JSON in <strong>single</strong> quotes so its inner double quotes survive.
+            The same argument also accepts a path to your <Code>credentials.json</Code> &mdash; the two
+            forms are auto-detected. Pasting the key inline needs <Code>gen3-metadata</Code>{" "}
+            <strong>v1.5.0</strong> or later, in both Python and R.
+          </p>
+
+          <p className="text-xs text-on-surface-variant leading-relaxed max-w-3xl mt-3">
+            An API key pasted into code is a live credential &mdash; don&rsquo;t commit or share a
+            notebook with it still in place. Use the <Code>credentials.json</Code> path form for code
+            you share.
+          </p>
 
           <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mt-4">
             By default you get the <strong>latest</strong> data release. Pass{" "}
