@@ -178,15 +178,28 @@ dfs$subject             # -> data.frame`}</CodeBlock>
           <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mt-4">
             Wrap the pasted JSON in <strong>single</strong> quotes so its inner double quotes survive.
             The same argument also accepts a path to your <Code>credentials.json</Code> &mdash; the two
-            forms are auto-detected. Pasting the key inline needs <Code>gen3-metadata</Code>{" "}
-            <strong>v1.5.0</strong> or later, in both Python and R.
+            forms are auto-detected.
           </p>
 
-          <p className="text-xs text-on-surface-variant leading-relaxed max-w-3xl mt-3">
-            An API key pasted into code is a live credential &mdash; don&rsquo;t commit or share a
-            notebook with it still in place. Use the <Code>credentials.json</Code> path form for code
-            you share.
-          </p>
+          <div className="mt-4 max-w-3xl flex gap-3 rounded-sm border border-error/30 border-l-2 border-l-error bg-error/5 p-4">
+            <MaterialIcon icon="warning" className="text-error text-lg shrink-0" />
+            <div className="text-xs text-on-surface-variant leading-relaxed">
+              <p>
+                <strong className="font-semibold text-error">Keep your key out of shared code.</strong>{" "}
+                An API key pasted into code is a live credential &mdash; don&rsquo;t commit or share a
+                notebook with it still in place. Use the <Code>credentials.json</Code> path form for
+                code you share.
+              </p>
+              <p className="mt-2">
+                When you&rsquo;re finished, do both:{" "}
+                <strong>delete the key from the cell or script</strong> &mdash; a saved{" "}
+                <Code>.ipynb</Code> or <Code>.R</Code> file keeps it on disk long after the session
+                ends &mdash; and <strong>deactivate the key in the Profile tab</strong> of the Data
+                Commons, which revokes it even if a copy has escaped. You can create a fresh key any
+                time.
+              </p>
+            </div>
+          </div>
 
           <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mt-4">
             By default you get the <strong>latest</strong> data release. Pass{" "}
