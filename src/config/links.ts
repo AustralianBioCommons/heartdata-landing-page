@@ -24,8 +24,16 @@ export const DATA_COMMONS_LOGIN_URL = "https://commons.heartdata.baker.edu.au/lo
 /** About page — what ACDC is and how access works (hero + header "Learn more"). */
 export const LEARN_MORE_URL = `${base}about.html`;
 
-/** ACDC team email (About page + footer). */
-export const CONTACT_URL = "mailto:acdc@baker.edu.au";
+/** ACDC support email (About page + footer). */
+export const CONTACT_URL = "mailto:heartdata-support@biocommons.org.au";
+
+/** ACDC Platform Terms of Use V1.1 — Drive-hosted PDF (footer). */
+export const TERMS_OF_USE_URL =
+  "https://drive.google.com/file/d/1lHG8TadHGjJbUSvWdwxczgDOtdHLSVfz/view";
+
+/** ACDC Privacy Policy V1.1 — Drive-hosted PDF (footer). */
+export const PRIVACY_POLICY_URL =
+  "https://drive.google.com/file/d/15HQsPknjWPt11E3Bme9fZyXc9ZfLe29O/view";
 
 /** Live harmonised data dictionary on the portal. */
 export const DATA_DICTIONARY_URL = "https://commons.heartdata.baker.edu.au/DD";
