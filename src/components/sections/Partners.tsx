@@ -30,7 +30,7 @@ const groups: { label: string; logos: Logo[] }[] = [
   {
     label: "Affiliated",
     logos: [
-      { src: "images/logos/png/university-of-melbourne.png", alt: "University of Melbourne", url: "https://www.unimelb.edu.au" },
+      { src: "images/logos/png/university-of-melbourne-horiz.png", alt: "University of Melbourne", url: "https://www.unimelb.edu.au" },
       { src: "images/logos/png/university-of-sydney.png", alt: "University of Sydney", url: "https://www.sydney.edu.au" },
     ],
   },
