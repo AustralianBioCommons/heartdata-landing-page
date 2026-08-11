@@ -3,15 +3,18 @@
 //
 // Journey: Explore -> Understand -> Apply
 //
-//   Explore the Data Commons (hero, primary)  -> DATA_COMMONS_URL        explore datasets
-//   Learn more (hero, secondary)              -> LEARN_MORE_URL          what ACDC is + how access works
+//   Explore (nav + hero primary CTA)          -> DATA_COMMONS_URL        explore datasets
+//   About (nav)                               -> LEARN_MORE_URL          what ACDC is
 //   Login (header, blue button)               -> DATA_COMMONS_LOGIN_URL  returning users sign in
-//   Start your application (About page)       -> DATA_COMMONS_URL        apply via REMS
-//   Contact (About page + footer)             -> CONTACT_URL             email the team
+//   Apply (nav + About page banner)           -> APPLY_URL               how access works
+//   Start your application (Apply page)       -> DATA_COMMONS_URL        apply via REMS
+//   Contact / Contact the team (site-wide)    -> CONTACT_URL             email support
+//   Terms of Use / Privacy Policy (footer)    -> TERMS_OF_USE_URL / PRIVACY_POLICY_URL
 //   Data Harmonisation bar (platform)         -> DATA_DICTIONARY_URL     live data dictionary
-//   User Guide (platform link + footer)       -> USER_GUIDE_URL          in-app guide.html stub
+//   User Guide (nav + footer)                 -> USER_GUIDE_URL          guide.html
 //
-// Distinct truthful destinations: portal root (explore), /login (sign in), about.html (learn).
+// Distinct truthful destinations: portal root (explore), /login (sign in),
+// about.html (learn), apply.html (access process).
 
 const base = import.meta.env.BASE_URL;
 
@@ -23,6 +26,9 @@ export const DATA_COMMONS_LOGIN_URL = "https://commons.heartdata.baker.edu.au/lo
 
 /** About page — what ACDC is and how access works (hero + header "Learn more"). */
 export const LEARN_MORE_URL = `${base}about.html`;
+
+/** Apply page — the data access process, plus contributing a cohort (nav + About banner). */
+export const APPLY_URL = `${base}apply.html`;
 
 /** ACDC support email (About page + footer). */
 export const CONTACT_URL = "mailto:heartdata-support@biocommons.org.au";
