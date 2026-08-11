@@ -29,7 +29,7 @@ const steps = [
   },
 ];
 
-export default function AboutAccess() {
+export default function ApplyAccess() {
   return (
     <SectionWrapper
       id="access"
@@ -40,16 +40,10 @@ export default function AboutAccess() {
       <div className="max-w-3xl mb-8">
         <h2
           id="access-heading"
-          className="font-headline text-2xl sm:text-3xl font-bold text-primary mb-4"
+          className="font-headline text-2xl sm:text-3xl font-bold text-primary"
         >
-          Apply for data access
+          How the application process works
         </h2>
-        <p className="text-on-surface-variant text-sm leading-relaxed">
-          ACDC is built first for the academic research community, and access is also open to
-          approved industry and commercial researchers — everyone applies through the same data
-          access application and Data Access Committee (DAC) review. Data ownership is always
-          retained by the contributing cohorts.
-        </p>
       </div>
 
       <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

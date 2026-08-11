@@ -3,7 +3,7 @@ import Footer from "./components/layout/Footer";
 import AboutHeader from "./components/about/AboutHeader";
 import AboutOverview from "./components/about/AboutOverview";
 import AboutDataCollection from "./components/about/AboutDataCollection";
-import AboutAccess from "./components/about/AboutAccess";
+import AboutApplyCta from "./components/about/AboutApplyCta";
 
 export default function AboutPage() {
   return (
@@ -13,7 +13,7 @@ export default function AboutPage() {
         <AboutHeader />
         <AboutOverview />
         <AboutDataCollection />
-        <AboutAccess />
+        <AboutApplyCta />
       </main>
       <Footer />
     </div>

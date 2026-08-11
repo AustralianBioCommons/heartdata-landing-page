@@ -1,12 +1,18 @@
-import { CONTACT_URL, USER_GUIDE_URL } from "../../config/links";
+import {
+  CONTACT_URL,
+  PRIVACY_POLICY_URL,
+  TERMS_OF_USE_URL,
+  USER_GUIDE_URL,
+} from "../../config/links";
 
-const footerLinks = [
+// Base-aware so the anchor also resolves from standalone pages (e.g. about.html).
+const base = import.meta.env.BASE_URL;
+
+const footerLinks: { label: string; href: string; external?: boolean }[] = [
   { label: "User Guide", href: USER_GUIDE_URL },
-  { label: "Data Policy", href: "/docs/ACDC_Data_Sharing_Policy.pdf" },
-  { label: "Terms of Access", href: "/policies/terms-of-use.html" },
-  // Base-aware so the anchor also resolves from standalone pages (e.g. about.html).
-  { label: "Governance Framework", href: `${import.meta.env.BASE_URL}#governance` },
-  { label: "Privacy", href: "/docs/ACDC_Privacy_Policy.pdf" },
+  { label: "Terms of Use", href: TERMS_OF_USE_URL, external: true },
+  { label: "Trust & Governance", href: `${base}#governance` },
+  { label: "Privacy Policy", href: PRIVACY_POLICY_URL, external: true },
   { label: "Contact", href: CONTACT_URL },
 ];
 
@@ -25,6 +31,8 @@ export default function Footer() {
             <a
               key={link.label}
               href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener" : undefined}
               className="whitespace-nowrap text-xs uppercase tracking-wider text-on-surface-variant hover:text-primary hover:underline underline-offset-4 transition-colors duration-150"
             >
               {link.label}
