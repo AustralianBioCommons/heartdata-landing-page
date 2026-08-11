@@ -1,15 +1,18 @@
 import { useState } from "react";
 import MaterialIcon from "../ui/MaterialIcon";
-import { DATA_COMMONS_LOGIN_URL, USER_GUIDE_URL } from "../../config/links";
+import {
+  APPLY_URL,
+  DATA_COMMONS_LOGIN_URL,
+  DATA_COMMONS_URL,
+  USER_GUIDE_URL,
+} from "../../config/links";
 
-// Base-aware so in-page anchors also work from standalone pages (e.g. about.html).
 const base = import.meta.env.BASE_URL;
 
 const navLinks: { label: string; href: string; external?: boolean }[] = [
   { label: "About", href: `${base}about.html` },
-  { label: "Research", href: `${base}#research` },
-  { label: "Datasets", href: `${base}#datasets` },
-  { label: "Governance", href: `${base}#governance` },
+  { label: "Explore", href: DATA_COMMONS_URL, external: true },
+  { label: "Apply", href: APPLY_URL },
   { label: "User Guide", href: USER_GUIDE_URL },
 ];
 
