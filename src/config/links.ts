@@ -4,7 +4,7 @@
 // Journey: Explore -> Understand -> Apply
 //
 //   Explore (nav + hero primary CTA)          -> DATA_COMMONS_URL        explore datasets
-//   About (nav)                               -> LEARN_MORE_URL          what ACDC is
+//   About (nav)                               -> about.html              what ACDC is
 //   Login (header, blue button)               -> DATA_COMMONS_LOGIN_URL  returning users sign in
 //   Apply (nav + About page banner)           -> APPLY_URL               how access works
 //   Start your application (Apply page)       -> DATA_COMMONS_URL        apply via REMS
@@ -23,9 +23,6 @@ export const DATA_COMMONS_URL = "https://commons.heartdata.baker.edu.au";
 
 /** Returning approved researchers sign in to the portal (header Login). */
 export const DATA_COMMONS_LOGIN_URL = "https://commons.heartdata.baker.edu.au/login";
-
-/** About page — what ACDC is and how access works (hero + header "Learn more"). */
-export const LEARN_MORE_URL = `${base}about.html`;
 
 /** Apply page — the data access process, plus contributing a cohort (nav + About banner). */
 export const APPLY_URL = `${base}apply.html`;
