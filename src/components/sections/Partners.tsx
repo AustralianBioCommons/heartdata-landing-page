@@ -17,7 +17,7 @@ const groups: { label: string; logos: Logo[] }[] = [
       { src: "images/logos/png/australian-biocommons.png", alt: "Australian BioCommons", url: "https://www.biocommons.org.au" },
       { src: "images/logos/png/baker-horizontal.png", alt: "Baker Heart and Diabetes Institute", url: "https://baker.edu.au", heightClass: "h-[2.8rem]"},
       { src: "images/logos/png/bioplatforms-australia.png", alt: "Bioplatforms Australia", url: "https://bioplatforms.com" },
-      { src: "images/logos/png/cad-frontiers.png", alt: "CAD Frontiers", url: "https://cadfrontiers.org.au" },
+      { src: "images/logos/png/cad-frontiers.png", alt: "CAD Frontiers", url: "https://cadfrontiers.com.au" },
     ],
   },
   {
@@ -46,7 +46,7 @@ export default function Partners() {
         Strategic Leadership &amp; Partners
       </h2>
 
-      <p className="max-w-3xl mx-auto text-center text-on-surface-variant text-sm leading-relaxed mb-2">
+      <p className="max-w-3xl mx-auto text-center text-on-surface-variant text-[0.7rem] leading-relaxed mb-2">
         The ACDC is delivered by a national partnership of cardiovascular research
         organisations and data-infrastructure providers, funded by the Australian Government
         through NCRIS and the Medical Research Future Fund, and supported by affiliated
