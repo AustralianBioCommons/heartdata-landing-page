@@ -21,7 +21,7 @@ export default function GuideStubPage({ title, intro }: { title: string; intro: 
           >
             {title}
           </h1>
-          <p className="text-on-surface-variant text-sm sm:text-base max-w-3xl leading-relaxed">
+          <p className="text-on-surface-variant text-base sm:text-lg max-w-prose leading-relaxed">
             {intro}
           </p>
         </SectionWrapper>
@@ -30,8 +30,8 @@ export default function GuideStubPage({ title, intro }: { title: string; intro: 
           <div className="bg-surface-alt border border-outline-light border-l-2 border-l-primary rounded-sm p-6 max-w-3xl flex gap-4">
             <MaterialIcon icon="schedule" className="text-primary text-2xl shrink-0 mt-0.5" />
             <div>
-              <h2 className="text-sm font-semibold text-on-surface mb-1">Detailed guide coming soon</h2>
-              <p className="text-xs text-on-surface-variant leading-relaxed">
+              <h2 className="text-base font-semibold text-on-surface mb-1">Detailed guide coming soon</h2>
+              <p className="text-sm text-on-surface-variant leading-relaxed">
                 We&rsquo;re writing this walkthrough. In the meantime, need a hand?{" "}
                 <a href={CONTACT_URL} className="text-primary hover:underline">
                   Contact the ACDC team

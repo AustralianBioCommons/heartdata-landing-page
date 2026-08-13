@@ -102,7 +102,7 @@ export default function DownloadGuidePage() {
           >
             Downloading &amp; analysing data
           </h1>
-          <p className="text-on-surface-variant text-sm sm:text-base max-w-3xl leading-relaxed">
+          <p className="text-on-surface-variant text-base sm:text-lg max-w-prose leading-relaxed">
             Once your access is approved, there are two ways to get data out of the ACDC Data Commons:
             pull the harmonised <strong>clinical &amp; metadata</strong> as tidy tables with the{" "}
             <Code>gen3-metadata</Code> tool, or download the large <strong>omics files</strong> with the
@@ -119,7 +119,7 @@ export default function DownloadGuidePage() {
           >
             Before you start &mdash; get your API key
           </h2>
-          <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl">
+          <p className="text-on-surface-variant text-base leading-relaxed max-w-prose">
             Every tool below authenticates with an API key. Sign in to the{" "}
             <ExtLink href={DATA_COMMONS_URL}>Data Commons</ExtLink>, open your profile and create an
             API key. You can then use it two ways: <strong>copy the JSON</strong> and paste it straight
@@ -139,14 +139,14 @@ export default function DownloadGuidePage() {
           >
             1 &middot; Clinical &amp; metadata
           </h2>
-          <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mb-6">
+          <p className="text-on-surface-variant text-base leading-relaxed max-w-prose mb-6">
             The <ExtLink href={GEN3_METADATA_URL}>gen3-metadata</ExtLink> tool fetches the harmonised
             clinical and metadata for a study. It walks the data dictionary and returns every node
             (subject, demographic, and so on) as raw JSON or tidy tables &mdash; pandas DataFrames in
             Python, data.frames in R.
           </p>
 
-          <h3 className="text-sm font-semibold text-on-surface mb-1">Python</h3>
+          <h3 className="text-lg font-semibold text-on-surface mb-1">Python</h3>
           <CodeBlock>{`# install
 pip install gen3-metadata`}</CodeBlock>
           <CodeBlock>{`from gen3_metadata.gen3_metadata_parser import fetch_all_metadata
@@ -160,7 +160,7 @@ result.subject          # one node, as raw JSON
 dfs = result.to_df()    # all nodes, as pandas DataFrames
 dfs.subject             # -> DataFrame`}</CodeBlock>
 
-          <h3 className="text-sm font-semibold text-on-surface mb-1 mt-6">R</h3>
+          <h3 className="text-lg font-semibold text-on-surface mb-1 mt-6">R</h3>
           <CodeBlock>{`# install
 if (!require("remotes")) install.packages("remotes")
 remotes::install_github("AustralianBioCommons/gen3-metadata", subdir = "gen3metadata-R")`}</CodeBlock>
@@ -175,7 +175,7 @@ result$subject          # one node, as a nested list
 dfs <- to_df(result)    # all nodes, as data.frames
 dfs$subject             # -> data.frame`}</CodeBlock>
 
-          <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mt-4">
+          <p className="text-on-surface-variant text-base leading-relaxed max-w-prose mt-4">
             Wrap the pasted JSON in <strong>single</strong> quotes so its inner double quotes survive.
             The same argument also accepts a path to your <Code>credentials.json</Code> &mdash; the two
             forms are auto-detected.
@@ -183,7 +183,7 @@ dfs$subject             # -> data.frame`}</CodeBlock>
 
           <div className="mt-4 max-w-3xl flex gap-3 rounded-sm border border-error/30 border-l-2 border-l-error bg-error/5 p-4">
             <MaterialIcon icon="warning" className="text-error text-lg shrink-0" />
-            <div className="text-xs text-on-surface-variant leading-relaxed">
+            <div className="text-sm text-on-surface-variant leading-relaxed">
               <p>
                 <strong className="font-semibold text-error">Keep your key out of shared code.</strong>{" "}
                 An API key pasted into code is a live credential &mdash; don&rsquo;t commit or share a
@@ -201,7 +201,7 @@ dfs$subject             # -> data.frame`}</CodeBlock>
             </div>
           </div>
 
-          <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mt-4">
+          <p className="text-on-surface-variant text-base leading-relaxed max-w-prose mt-4">
             By default you get the <strong>latest</strong> data release. Pass{" "}
             <Code>data_release = "v2.3"</Code> to pin a version, or <Code>None</Code> (Python) /{" "}
             <Code>NULL</Code> (R) to return every record. Full docs and an example notebook are in the{" "}
@@ -217,30 +217,30 @@ dfs$subject             # -> data.frame`}</CodeBlock>
           >
             2 &middot; Omics files
           </h2>
-          <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mb-6">
+          <p className="text-on-surface-variant text-base leading-relaxed max-w-prose mb-6">
             Genomic and other omics files are large, so you download them with the Gen3 client using a{" "}
             <strong>manifest</strong> &mdash; a small JSON file listing the files you selected.
           </p>
 
           <ol className="space-y-6">
             <li>
-              <h3 className="text-sm font-semibold text-on-surface mb-1">1. Build a manifest</h3>
-              <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl">
+              <h3 className="text-lg font-semibold text-on-surface mb-1">1. Build a manifest</h3>
+              <p className="text-on-surface-variant text-base leading-relaxed max-w-prose">
                 In the <ExtLink href={STUDY_EXPLORER_URL}>Study Explorer</ExtLink>, select the studies
                 or files you want and click <strong>Download Manifest</strong> to get{" "}
                 <Code>manifest.json</Code>.
               </p>
             </li>
             <li>
-              <h3 className="text-sm font-semibold text-on-surface mb-1">2. Install the Gen3 client</h3>
-              <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl">
+              <h3 className="text-lg font-semibold text-on-surface mb-1">2. Install the Gen3 client</h3>
+              <p className="text-on-surface-variant text-base leading-relaxed max-w-prose">
                 Download the <ExtLink href={GEN3_CLIENT_URL}>gen3-client</ExtLink> binary for your
                 operating system from its releases page and add it to your <Code>PATH</Code>. The{" "}
                 <ExtLink href={GEN3_CLIENT_DOCS_URL}>Gen3 data-client docs</ExtLink> cover the details.
               </p>
             </li>
             <li>
-              <h3 className="text-sm font-semibold text-on-surface mb-1">
+              <h3 className="text-lg font-semibold text-on-surface mb-1">
                 3. Configure it with your key
               </h3>
               <CodeBlock>{`gen3-client configure --profile acdc \\
@@ -248,14 +248,14 @@ dfs$subject             # -> data.frame`}</CodeBlock>
   --apiendpoint https://commons.heartdata.baker.edu.au`}</CodeBlock>
             </li>
             <li>
-              <h3 className="text-sm font-semibold text-on-surface mb-1">4. Download the files</h3>
+              <h3 className="text-lg font-semibold text-on-surface mb-1">4. Download the files</h3>
               <CodeBlock>{`gen3-client download-multiple --profile acdc --manifest manifest.json`}</CodeBlock>
             </li>
           </ol>
 
           <div className="mt-6 bg-surface-alt border border-outline-light rounded-sm p-5 max-w-3xl">
-            <h3 className="text-sm font-semibold text-on-surface mb-2">Troubleshooting</h3>
-            <ul className="text-xs text-on-surface-variant space-y-1 list-disc pl-5 leading-relaxed">
+            <h3 className="text-base font-semibold text-on-surface mb-2">Troubleshooting</h3>
+            <ul className="text-sm text-on-surface-variant space-y-1 list-disc pl-5 leading-relaxed">
               <li>Make sure you&rsquo;re signed in and your access to the selected studies is approved.</li>
               <li>Manifests expire &mdash; regenerate from the Study Explorer if downloads fail.</li>
               <li>
@@ -274,7 +274,7 @@ dfs$subject             # -> data.frame`}</CodeBlock>
           >
             3 &middot; Analyse in a Gen3 workspace
           </h2>
-          <p className="text-on-surface-variant text-sm leading-relaxed max-w-3xl mb-6">
+          <p className="text-on-surface-variant text-base leading-relaxed max-w-prose mb-6">
             Prefer not to set anything up locally? Gen3 <strong>workspaces</strong> are browser-based
             Jupyter or RStudio environments that sit right next to the data. The{" "}
             <ExtLink href={GEN3_WORKSPACE_DOCS_URL}>Gen3 analysis guide</ExtLink> has the full details.
@@ -287,13 +287,13 @@ dfs$subject             # -> data.frame`}</CodeBlock>
                 className="bg-white border border-outline-light border-l-2 border-l-primary p-5 rounded-sm"
               >
                 <MaterialIcon icon={card.icon} className="text-primary text-2xl mb-2 block" />
-                <h3 className="text-sm font-semibold text-on-surface mb-1">{card.title}</h3>
-                <p className="text-xs text-on-surface-variant leading-relaxed">{card.body}</p>
+                <h3 className="text-base font-semibold text-on-surface mb-1">{card.title}</h3>
+                <p className="text-sm text-on-surface-variant leading-relaxed">{card.body}</p>
               </div>
             ))}
           </div>
 
-          <p className="text-xs text-on-surface-variant mt-8">
+          <p className="text-sm text-on-surface-variant mt-8">
             Need help?{" "}
             <a href={CONTACT_URL} className="text-primary hover:underline">
               Contact the ACDC team

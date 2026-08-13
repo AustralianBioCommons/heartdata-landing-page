@@ -43,7 +43,7 @@ export default function CriticalChallenge() {
             <h3 className="text-lg font-semibold text-on-surface mb-3">
               {c.title}
             </h3>
-            <p className="text-on-surface-variant leading-relaxed text-sm">
+            <p className="text-on-surface-variant leading-relaxed text-base">
               {c.description}
             </p>
           </div>
@@ -60,8 +60,8 @@ export default function CriticalChallenge() {
             <div key={obj.label} className="flex items-start gap-3">
               <span className="inline-block w-2 h-2 rounded-full bg-secondary mt-1.5 shrink-0" />
               <div>
-                <span className="font-semibold text-on-surface text-sm">{obj.label}</span>
-                <p className="text-xs text-on-surface-variant mt-0.5">{obj.description}</p>
+                <span className="font-semibold text-on-surface text-base">{obj.label}</span>
+                <p className="text-sm text-on-surface-variant mt-0.5">{obj.description}</p>
               </div>
             </div>
           ))}

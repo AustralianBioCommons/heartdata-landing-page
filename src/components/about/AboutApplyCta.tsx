@@ -14,7 +14,7 @@ export default function AboutApplyCta() {
             <MaterialIcon icon="lock_open" className="text-on-primary text-xl" />
             Ready to apply?
           </h2>
-          <p className="text-[#b0c8e8] text-sm mt-1">
+          <p className="text-[#b0c8e8] text-base mt-1">
             Data access applications are reviewed by the ACDC Data Access Committee. See how the
             four-step process works and start your application.
           </p>

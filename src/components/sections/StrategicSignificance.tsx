@@ -43,7 +43,7 @@ export default function StrategicSignificance() {
         >
           Trust &amp; Governance
         </h2>
-        <p className="text-on-surface-variant text-sm max-w-3xl">
+        <p className="text-on-surface-variant text-base max-w-prose">
           Rigorous oversight ensuring secure, ethical access to sensitive
           cardiovascular research data.
         </p>
@@ -60,8 +60,8 @@ export default function StrategicSignificance() {
               <span className="text-primary font-bold text-sm">{b.acronym}</span>
             </div>
             <div>
-              <h4 className="font-semibold text-on-surface text-sm">{b.name}</h4>
-              <p className="text-xs text-on-surface-variant mt-1">{b.description}</p>
+              <h4 className="font-semibold text-on-surface text-base">{b.name}</h4>
+              <p className="text-sm text-on-surface-variant mt-1">{b.description}</p>
             </div>
           </div>
         ))}
@@ -71,8 +71,8 @@ export default function StrategicSignificance() {
       <div className="flex gap-4 p-5 bg-surface-alt border border-outline-light rounded-sm">
         <MaterialIcon icon="shield" className="text-tertiary text-xl shrink-0 mt-0.5" />
         <div>
-          <h4 className="font-semibold text-on-surface text-sm">Security &amp; Compliance</h4>
-          <p className="text-xs text-on-surface-variant mt-1">
+          <h4 className="font-semibold text-on-surface text-base">Security &amp; Compliance</h4>
+          <p className="text-sm text-on-surface-variant mt-1">
             Industry-standard security practices with encrypted storage,
             continuous monitoring, and sovereign Australian infrastructure.
             Compliant with all relevant laws and regulations.

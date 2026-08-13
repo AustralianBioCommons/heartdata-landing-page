@@ -34,6 +34,18 @@
   /* Fonts */
   --font-headline: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale -- lower rungs only. xl and above are deliberately left at
+     Tailwind defaults: most text-2xl usages are Material Symbols glyph sizes,
+     and the heading steps are already at convention. */
+  --text-xs: 0.8125rem; /* 13px -- eyebrows, table headers, footer links */
+  --text-xs--line-height: 1.25rem; /* uppercase tracking needs the extra air */
+  --text-sm: 0.9375rem; /* 15px -- card copy, table cells, nav */
+  --text-sm--line-height: 1.4375rem;
+  --text-base: 1.0625rem; /* 17px -- body prose */
+  --text-base--line-height: 1.75rem; /* 1.65 -- prose default */
+  --text-lg: 1.1875rem; /* 19px -- ledes, h3 above prose */
+  --text-lg--line-height: 1.8rem; /* keeps every prose step at >=1.5 */
 }
 
 /* Base styles */
@@ -42,6 +54,19 @@ body,
 #root {
   height: 100%;
 }
+
+/* Very wide viewports: scale the whole system up slightly. Every Tailwind
+   value here is rem-based, so this lifts type, spacing and container widths
+   together rather than only the text. Must stay a percentage -- an absolute
+   px value would override the reader's browser font-size preference.
+   96rem matches the 2xl: breakpoint; in a media query rem resolves against
+   the browser's initial font size, so this does not shift the breakpoints. */
+@media (min-width: 96rem) {
+  :root {
+    font-size: 106.25%;
+  }
+}
+
 
 /* Material Symbols config */
 .material-symbols-outlined {

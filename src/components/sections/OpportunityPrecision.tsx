@@ -28,7 +28,7 @@ export default function OpportunityPrecision() {
         >
           The ACDC Platform
         </h2>
-        <p className="text-on-surface-variant text-sm">
+        <p className="text-on-surface-variant text-base">
           From fragmented research data to harmonised, actionable insights.
         </p>
       </div>
@@ -41,8 +41,8 @@ export default function OpportunityPrecision() {
             className="bg-white border border-outline-light border-l-2 border-l-tertiary p-5 rounded-sm text-center"
           >
             <MaterialIcon icon={dt.icon} className="text-tertiary text-2xl mb-2" />
-            <div className="text-sm font-semibold text-on-surface">{dt.label}</div>
-            <div className="text-xs text-on-surface-variant mt-1">{dt.subtitle}</div>
+            <div className="text-base font-semibold text-on-surface">{dt.label}</div>
+            <div className="text-sm text-on-surface-variant mt-1">{dt.subtitle}</div>
           </div>
         ))}
       </div>
@@ -71,7 +71,7 @@ export default function OpportunityPrecision() {
               className="text-base text-[#b0c8e8] group-hover:text-on-primary transition-colors"
             />
           </h3>
-          <p className="text-[#b0c8e8] text-sm mt-1">
+          <p className="text-[#b0c8e8] text-base mt-1">
             Standardised clinical variables unified across all cohorts &mdash; explore the live
             data dictionary.
           </p>
@@ -100,8 +100,8 @@ export default function OpportunityPrecision() {
             </span>
             <MaterialIcon icon="search" className="text-primary text-2xl" />
           </div>
-          <div className="text-sm font-semibold text-on-surface">Explore &amp; build your cohort</div>
-          <p className="text-xs text-on-surface-variant mt-1">
+          <div className="text-base font-semibold text-on-surface">Explore &amp; build your cohort</div>
+          <p className="text-sm text-on-surface-variant mt-1">
             Filter the harmonised data to find the datasets and data types that fit your research
             question.
           </p>
@@ -117,8 +117,8 @@ export default function OpportunityPrecision() {
             </span>
             <MaterialIcon icon="key" className="text-primary text-2xl" />
           </div>
-          <div className="text-sm font-semibold text-on-surface">Apply for access</div>
-          <p className="text-xs text-on-surface-variant mt-1">
+          <div className="text-base font-semibold text-on-surface">Apply for access</div>
+          <p className="text-sm text-on-surface-variant mt-1">
             Submit a data access request through REMS, reviewed by the Data Access Committee.
           </p>
         </div>
@@ -133,8 +133,8 @@ export default function OpportunityPrecision() {
             </span>
             <MaterialIcon icon="terminal" className="text-primary text-2xl" />
           </div>
-          <div className="text-sm font-semibold text-on-surface">Analyse your way</div>
-          <p className="text-xs text-on-surface-variant mt-1">
+          <div className="text-base font-semibold text-on-surface">Analyse your way</div>
+          <p className="text-sm text-on-surface-variant mt-1">
             Once approved, work in a managed analysis workspace, or pull your data out via an API
             key into your own environment.
           </p>
@@ -142,7 +142,7 @@ export default function OpportunityPrecision() {
       </div>
 
       {/* User Guide entry point */}
-      <p className="text-sm text-on-surface-variant mt-4">
+      <p className="text-base text-on-surface-variant mt-4">
         New to the platform?{" "}
         <a
           href={USER_GUIDE_URL}

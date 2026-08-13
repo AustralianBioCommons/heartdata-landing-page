@@ -19,7 +19,7 @@ export default function ApplyContribute() {
             <MaterialIcon icon="database" className="text-on-primary text-2xl" />
             Contribute your cohort
           </h2>
-          <p className="text-[#b0c8e8] text-sm sm:text-base mt-3 max-w-2xl leading-relaxed">
+          <p className="text-[#b0c8e8] text-base sm:text-lg mt-3 max-w-2xl leading-relaxed">
             The Commons grows with every cohort that joins. If you lead a cardiovascular study
             and want your data harmonised to global standards, discoverable by the national
             research community, and shared on your terms, we&rsquo;d like to hear from you

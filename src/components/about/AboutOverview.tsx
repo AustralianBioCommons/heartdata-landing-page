@@ -38,7 +38,7 @@ export default function AboutOverview() {
         >
           About ACDC
         </h2>
-        <div className="space-y-4 text-on-surface-variant text-sm leading-relaxed">
+        <div className="space-y-4 max-w-prose text-on-surface-variant text-base leading-relaxed">
           <p>
             The Australian Cardiovascular disease Data Commons (ACDC) is a secure, scalable and
             internationally integrated data infrastructure for cardiovascular research. An
@@ -79,8 +79,8 @@ export default function AboutOverview() {
             className="bg-surface-alt border border-outline-light border-l-2 border-l-primary p-5 rounded-sm"
           >
             <MaterialIcon icon={aim.icon} className="text-primary text-2xl mb-2 block" />
-            <h4 className="text-sm font-semibold text-on-surface mb-1">{aim.title}</h4>
-            <p className="text-xs text-on-surface-variant leading-relaxed">{aim.description}</p>
+            <h4 className="text-base font-semibold text-on-surface mb-1">{aim.title}</h4>
+            <p className="text-sm text-on-surface-variant leading-relaxed">{aim.description}</p>
           </div>
         ))}
       </div>
