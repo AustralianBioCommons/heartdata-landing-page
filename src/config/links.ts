@@ -28,7 +28,7 @@ export const DATA_COMMONS_LOGIN_URL = "https://commons.heartdata.baker.edu.au/lo
 export const APPLY_URL = `${base}apply.html`;
 
 /** ACDC support email (About page + footer). */
-export const CONTACT_URL = "mailto:heartdata-support@biocommons.org.au";
+export const CONTACT_URL = "mailto:guerdon@biocommons.org.au";
 
 /** ACDC Platform Terms of Use V1.1 — Drive-hosted PDF (footer). */
 export const TERMS_OF_USE_URL =
