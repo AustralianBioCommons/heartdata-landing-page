@@ -55,6 +55,18 @@ body,
   height: 100%;
 }
 
+/* Very wide viewports: scale the whole system up slightly. Every Tailwind
+   value here is rem-based, so this lifts type, spacing and container widths
+   together rather than only the text. Must stay a percentage -- an absolute
+   px value would override the reader's browser font-size preference.
+   96rem matches the 2xl: breakpoint; in a media query rem resolves against
+   the browser's initial font size, so this does not shift the breakpoints. */
+@media (min-width: 96rem) {
+  :root {
+    font-size: 106.25%;
+  }
+}
+
 
 /* Material Symbols config */
 .material-symbols-outlined {
