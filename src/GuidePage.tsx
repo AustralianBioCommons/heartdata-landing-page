@@ -69,7 +69,7 @@ export default function GuidePage() {
           >
             User Guide
           </h1>
-          <p className="text-on-surface-variant text-sm sm:text-base max-w-3xl leading-relaxed">
+          <p className="text-on-surface-variant text-base sm:text-lg max-w-prose leading-relaxed">
             Step-by-step walkthroughs for working with the ACDC platform &mdash; from setting up your
             account to building cohorts, running analyses, and getting your data out. Detailed guides
             with screenshots are being added; the topics below outline what&rsquo;s covered.
@@ -93,20 +93,20 @@ export default function GuidePage() {
               >
                 <MaterialIcon icon={t.icon} className="text-primary text-2xl shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-on-surface">{t.title}</h3>
-                  <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                  <h3 className="text-base font-semibold text-on-surface">{t.title}</h3>
+                  <p className="text-sm text-on-surface-variant mt-1 leading-relaxed">
                     {t.description}
                   </p>
                   {t.href ? (
                     <a
                       href={t.href}
-                      className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary-dark mt-2"
+                      className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary-dark mt-2"
                     >
                       Read guide
                       <MaterialIcon icon="arrow_forward" className="text-xs" />
                     </a>
                   ) : (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-white border border-outline-light px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-on-surface-variant mt-2">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-white border border-outline-light px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-on-surface-variant mt-2">
                       <MaterialIcon icon="schedule" className="text-xs" />
                       Coming soon
                     </span>
@@ -115,7 +115,7 @@ export default function GuidePage() {
               </div>
             ))}
           </div>
-          <p className="text-xs text-on-surface-variant mt-6">
+          <p className="text-sm text-on-surface-variant mt-6">
             More detailed documentation is on the way. Need help now?{" "}
             <a href={CONTACT_URL} className="text-primary hover:underline">
               Contact the ACDC team

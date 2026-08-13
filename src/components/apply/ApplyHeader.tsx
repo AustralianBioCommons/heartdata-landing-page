@@ -12,7 +12,7 @@ export default function ApplyHeader() {
       >
         Apply for data access
       </h1>
-      <p className="text-on-surface-variant text-sm sm:text-base max-w-3xl leading-relaxed">
+      <p className="text-on-surface-variant text-base sm:text-lg max-w-prose leading-relaxed">
         ACDC is built first for the academic research community, and access is also open to
         approved industry and commercial researchers &mdash; everyone applies through the same
         data access application and Data Access Committee (DAC) review. Data ownership is

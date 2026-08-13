@@ -12,7 +12,7 @@ export default function AboutHeader() {
       >
         Australia's first global standards-based cardiovascular data commons
       </h1>
-      <p className="text-on-surface-variant text-sm sm:text-base max-w-3xl leading-relaxed">
+      <p className="text-on-surface-variant text-base sm:text-lg max-w-prose leading-relaxed">
         The Australian Cardiovascular disease Data Commons (ACDC) unifies genomic, lipidomic,
         and clinical data from cardiovascular research cohorts across Australia &mdash; giving
         approved researchers the scale and tools to uncover the drivers of coronary artery

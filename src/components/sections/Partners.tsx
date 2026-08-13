@@ -46,7 +46,7 @@ export default function Partners() {
         Strategic Leadership &amp; Partners
       </h2>
 
-      <p className="max-w-3xl mx-auto text-center text-on-surface-variant text-[0.78rem] leading-relaxed mb-2">
+      <p className="max-w-prose mx-auto text-center text-on-surface-variant text-base leading-relaxed mb-2">
         The ACDC is delivered by a national partnership of cardiovascular research
         organisations and data-infrastructure providers, funded by the Australian Government
         through NCRIS and the Medical Research Future Fund, and supported by affiliated
@@ -58,7 +58,7 @@ export default function Partners() {
       <div className="divide-y divide-outline-light">
         {groups.map((group) => (
           <div key={group.label} className="py-6 text-center">
-            <span className="block text-[1.05rem] uppercase tracking-widest font-semibold text-on-surface-variant mb-4">
+            <span className="block text-sm uppercase tracking-widest font-semibold text-on-surface-variant mb-4">
               {group.label}
             </span>
             <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">

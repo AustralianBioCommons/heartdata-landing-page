@@ -55,8 +55,8 @@ export default function ApplyAccess() {
             <div className="w-8 h-8 rounded-sm bg-secondary/10 flex items-center justify-center mb-3">
               <span className="text-secondary font-bold text-sm">{s.step}</span>
             </div>
-            <h3 className="font-semibold text-on-surface text-sm mb-1">{s.title}</h3>
-            <p className="text-xs text-on-surface-variant leading-relaxed">{s.description}</p>
+            <h3 className="font-semibold text-on-surface text-base mb-1">{s.title}</h3>
+            <p className="text-sm text-on-surface-variant leading-relaxed">{s.description}</p>
           </li>
         ))}
       </ol>
@@ -68,7 +68,7 @@ export default function ApplyAccess() {
             <MaterialIcon icon="lock_open" className="text-on-primary text-xl" />
             Ready to apply?
           </h3>
-          <p className="text-[#b0c8e8] text-sm mt-1">
+          <p className="text-[#b0c8e8] text-base mt-1">
             Start your data access application on the ACDC Data Commons, or contact the ACDC team
             with any questions.
           </p>

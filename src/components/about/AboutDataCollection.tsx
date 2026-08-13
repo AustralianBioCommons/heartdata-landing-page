@@ -45,7 +45,7 @@ export default function AboutDataCollection() {
         >
           How data is collected
         </h2>
-        <p className="text-on-surface-variant text-sm leading-relaxed">
+        <p className="max-w-prose text-on-surface-variant text-base leading-relaxed">
           ACDC operates a federated model: it does not recruit participants directly. Established
           Australian cardiovascular cohorts contribute data they have already gathered, while
           ownership and authority over each dataset remain with its original custodians.
@@ -60,8 +60,8 @@ export default function AboutDataCollection() {
           >
             <MaterialIcon icon={item.icon} className="text-tertiary text-xl shrink-0 mt-0.5" />
             <div>
-              <h3 className="font-semibold text-on-surface text-sm">{item.title}</h3>
-              <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">
+              <h3 className="font-semibold text-on-surface text-base">{item.title}</h3>
+              <p className="text-sm text-on-surface-variant mt-1 leading-relaxed">
                 {item.description}
               </p>
             </div>

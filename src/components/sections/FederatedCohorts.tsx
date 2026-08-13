@@ -25,7 +25,7 @@ const summaryStats = [
 // that are coming soon (e.g. genomic). The bare dot marks data not yet available.
 function ComingPill() {
   return (
-    <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-surface-alt border border-outline-light px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-on-surface-variant">
+    <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-surface-alt border border-outline-light px-2 py-0.5 text-xs font-medium uppercase tracking-wide text-on-surface-variant">
       <MaterialIcon icon="schedule" className="text-xs" />
       Coming
     </span>
@@ -88,7 +88,7 @@ export default function FederatedCohorts() {
         >
           Research Datasets
         </h2>
-        <p className="text-on-surface-variant text-sm">
+        <p className="text-on-surface-variant text-base">
           Data availability across onboarded ACDC cardiovascular research cohorts.
         </p>
       </div>
@@ -103,7 +103,7 @@ export default function FederatedCohorts() {
             <div className="text-2xl font-bold text-primary tabular-nums leading-none">
               {s.value}
             </div>
-            <div className="text-xs text-on-surface-variant mt-2">{s.label}</div>
+            <div className="text-sm text-on-surface-variant mt-2">{s.label}</div>
           </div>
         ))}
       </div>
@@ -114,7 +114,7 @@ export default function FederatedCohorts() {
           expanded ? "max-h-[420px] overflow-y-auto" : ""
         }`}
       >
-        <table className="w-full text-left border-collapse min-w-[640px]">
+        <table className="w-full text-left border-collapse min-w-[40rem]">
           <caption className="sr-only">
             Data availability across ACDC research datasets
           </caption>
@@ -191,7 +191,7 @@ export default function FederatedCohorts() {
 
       {/* Legend + expand/collapse */}
       <div className="mt-4 flex items-start justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-on-surface-variant">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-on-surface-variant">
           <span className="flex items-center gap-2">
             <ComingPill />
             Coming soon
