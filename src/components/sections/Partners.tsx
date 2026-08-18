@@ -28,7 +28,7 @@ const groups: { label: string; logos: Logo[] }[] = [
     ],
   },
   {
-    label: "Affiliated",
+    label: "Key Partners",
     logos: [
       { src: "images/logos/png/university-of-melbourne-horiz.png", alt: "University of Melbourne", url: "https://www.unimelb.edu.au" },
       { src: "images/logos/png/university-of-sydney.png", alt: "University of Sydney", url: "https://www.sydney.edu.au" },
@@ -49,7 +49,7 @@ export default function Partners() {
       <p className="max-w-prose mx-auto text-center text-on-surface-variant text-base leading-relaxed mb-2">
         The ACDC is delivered by a national partnership of cardiovascular research
         organisations and data-infrastructure providers, funded by the Australian Government
-        through NCRIS and the Medical Research Future Fund, and supported by affiliated
+        through NCRIS and the Medical Research Future Fund, and supported by partner
         universities. Together these partners provide the scientific leadership, secure
         infrastructure and governance that underpin Australia&rsquo;s first global
         standards-based human data commons.
