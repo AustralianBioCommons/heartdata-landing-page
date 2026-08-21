@@ -19,6 +19,20 @@ const groups: { label: string; logos: Logo[] }[] = [
     ],
   },
   {
+    label: "Data Contributors",
+    logos: [
+      { src: "images/logos/png/baker-heart-and-diabetes-institute.png", alt: "Baker Heart and Diabetes Institute" },
+      { src: "images/logos/png/university-of-sydney.png", alt: "University of Sydney" },
+      { src: "images/logos/png/uwa-on-blue.png", alt: "University of Western Australia" },
+      { src: "images/logos/png/monash.png", alt: "Monash University" },
+      { src: "images/logos/png/cancer-council-victoria.png", alt: "Cancer Council Victoria" },
+      { src: "images/logos/png/utas.png", alt: "University of Tasmania" },
+      { src: "images/logos/png/sax.png", alt: "The SAX Institute" },
+      { src: "images/logos/png/george-on-purple.png", alt: "The George Institute" },
+      { src: "images/logos/png/sahmri.png", alt: "SAHMRI" },
+    ],
+  },
+  {
     label: "Funding",
     logos: [
       { src: "images/logos/png/national-research-infrastructure-for-australia-ncris.png", alt: "National Research Infrastructure for Australia (NCRIS)" },
@@ -56,7 +70,7 @@ export default function Partners() {
                   key={logo.alt}
                   src={`${import.meta.env.BASE_URL}${logo.src}`}
                   alt={logo.alt}
-                  className={`${logo.heightClass ?? "h-[3.15rem]"} w-auto object-contain mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity duration-200`}
+                  className={`${logo.heightClass ?? "h-[3.15rem]"} w-auto object-contain mix-blend-multiply`}
                 />
               ))}
             </div>
