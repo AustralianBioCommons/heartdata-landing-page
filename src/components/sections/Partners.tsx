@@ -21,6 +21,20 @@ const groups: { label: string; logos: Logo[] }[] = [
     ],
   },
   {
+    label: "Data Contributors",
+    logos: [
+      { src: "images/logos/png/baker-horizontal.png", alt: "Baker Heart and Diabetes Institute", url: "https://www.baker.edu.au/", heightClass: "h-[2.8rem]" },
+      { src: "images/logos/png/university-of-sydney.png", alt: "University of Sydney", url: "https://www.sydney.edu.au/" },
+      { src: "images/logos/png/uwa-on-blue.png", alt: "University of Western Australia", url: "https://www.uwa.edu.au/" },
+      { src: "images/logos/png/monash.png", alt: "Monash University", url: "https://www.monash.edu/" },
+      { src: "images/logos/png/cancer-council-victoria.png", alt: "Cancer Council Victoria", url: "https://www.cancervic.org.au/" },
+      { src: "images/logos/png/utas.png", alt: "University of Tasmania", url: "https://www.utas.edu.au/" },
+      { src: "images/logos/png/sax.png", alt: "The SAX Institute", url: "https://www.saxinstitute.org.au/" },
+      { src: "images/logos/png/george-on-purple.png", alt: "The George Institute", url: "https://www.georgeinstitute.org/" },
+      { src: "images/logos/png/sahmri.png", alt: "SAHMRI", url: "https://sahmri.org.au/" },
+    ],
+  },
+  {
     label: "Funding",
     logos: [
       { src: "images/logos/png/national-research-infrastructure-for-australia-ncris.png", alt: "National Research Infrastructure for Australia (NCRIS)", url: "https://www.education.gov.au/ncris" },
